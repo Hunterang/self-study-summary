@@ -6,7 +6,7 @@
   </head>
   <body>
     <script type="text/javascript">
-      ajax//封装
+      //ajax//封装
       function myAjax(opt) {
           opt = opt || {};
           opt.type = opt.type || 'GET';
@@ -43,17 +43,38 @@
           }
         }
         //用法
-        myAjax({
-          type : 'get',
-          data : {
-            senIndex : '',
-            begintime : '2018-12-20 10:10'
-          },
-          url : '',
-          success : function (data) {
-            console.log(data);
+        // myAjax({
+        //   type : 'get',
+        //   data : {
+        //     senIndex : '',
+        //     begintime : '2018-12-20 10:10'
+        //   },
+        //   url : '',
+        //   success : function (data) {
+        //     console.log(data);
+        //   }
+        // })
+        function deepClone () {
+          var arg = arguments[0]
+          if (arg == '' || typeof(arg)!='object') {
+            return '请输入对象';
           }
-        })
+          var newObject = arg instanceof Array ? [] : {};
+          console.log(Object.keys(arg));
+          Object.keys(arg).forEach(function (val,index) {
+            if (!arg.hasOwnProperty(val)) {
+            }
+            if (arg[val]!=null && typeof(arg[val]) == 'object') {
+              newObject[val] = deepClone(arg[val])
+            }else {
+              newObject[val] = arg[val]
+            }
+          })
+          return  newObject ;
+        }
+        var a = {'data': ['a','b','c'],'name':'hello'};
+        console.log(a);
+        console.log(deepClone (a));
     </script>
   </body>
 </html>

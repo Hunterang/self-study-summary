@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  var mySingleton2=function(){//使用闭包
+                      var privateVar='this is private variable';
+                      function showVar(){
+                          console.log(privateVar);
+                      };
+
+                      //公有变量和方法，可以访问私有变量
+                      return {//返回对象
+                          publicMethod:function(){
+                              showVar();
+                          },
+                          publicProp:'this is public property'
+                      };
+                  };
+
+                  var single2=mySingleton2().publicMethod();
+                  var otherSingle2=mySingleton2().publicMethod();
+                  console.log(single2==otherSingle2);
+                  //单例模式中属于暴露的共有方法，调用私有方法、变量。
+                  //存在缓存，将私有的方法、变量缓存，之后每次调用的都是第一次调用的缓存结果，所有之后都一样的。
+</script>
+
+<script type="text/javascript">
+     var singletest = (function () {
+       //单例模式的唯一性很好，对比较特殊的对象不会产生混乱的情况，一旦被确定下来就是唯一的
+       function Boy (opt) {
+         opt = opt || ''
+         this.name = opt.name || 'feifei'
+         this.money = opt.money || 1000000
+         this.play = function () {
+           this.count --
+         }
+       }
+       //用来缓存生成的实例
+       var instanse ;//在页面不更新的情况下，堆内存中始终保存着生成的唯一对象
+                      //当页面被操作的时候，始终操作的是这个唯一的对象
+
+       return function (opt) {
+         if (typeof(instanse)!= 'object') {
+           instanse = new Boy(opt)
+         }
+         return instanse;
+       }
+     }())
+     //页面的任意地方调用singletest()，只会让唯一的对象发生变化
+
+
+</script>

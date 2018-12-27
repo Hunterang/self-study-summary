@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      .controler {
+        display : flex;
+        width : 350px;
+        height : 120px;
+        align-items : stretch;
+        border: 1px solid #666;
+      }
+      .name {
+        display: flex;
+        align-items: center;
+        width : 60px;
+        border: 1px solid #d57;
+      }
+      .data {
+        flex :1;
+        display: flex;
+        flex-direction :column;
+        border: 1px solid #c7000a;
+      }
+      .data div {
+        flex :1;
+        align-items: stretch;
+        /* border: 1px solid #496847; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="" style="background: #fff;position:absolute;width:100px;z-index:2;height:100px">
+
+    </div>
+    <div class="" style="background: #666;width:150px;height:150px;">
+
+    </div>
+    <div id="father">
+
+    </div>
+
+  </body>
+  <script type="text/javascript">
+  //每生成一个div都将数据插入相应的位置
+  var data = {
+    name : '传感器',
+    data : 100,
+    unit : 1,
+    time : new Date().toLocaleString(),
+    url : 'Apilogin'
+  }
+  var ft = document.getElementById('father');
+  creatControler(ft,data)
+    function creatControler(fatherObj,data) {
+      var div = document.createElement('div');
+      // div.style.position = absolute;
+      div.innerHTML = '<div class="controler">\
+        <div class="name">'
+          +data.name+
+        '</div>\
+        <div class="data">\
+            <div class="top">\
+              <span>数值:</span>'+data.data+'</span>\
+            </div>\
+            <div class="middle">\
+              <span>状态:</span><span>'+data.unit+'</span>\
+            </div>\
+            <div class="bottom">\
+              <span>更新时间:</span><span>'+data.time+'</span>\
+            </div>\
+            <div class="footer">\
+              <span>图表显示:</span><button type="button" class='+data.url+' name="图表显示">图表显示</button>\
+            </div>\
+        </div>\
+      </div>'
+      fatherObj.appendChild(div);
+    }
+
+
+    var lock = false;//双控制锁，因为有两个mouse监听事件
+    function setControler (obj) {//把生成的每一个div都设置相应的位置，为后期移动做好铺垫
+      var elList = obj.children;
+      if (!elList) {
+        return;
+      }else {
+        var arrs =[];
+        for (var i = 0; i < elList.length; i++) {
+          var arrx=[];
+          arrx.push(elList[i].offsetLeft);
+          arrx.push(elList[i].offsetTop);
+          arrs.push(arrx);
+        }
+        Array.prototype.forEach.call(elList,function (val,index) {
+
+          val.style.position = 'absolute';
+          val.style.left = arrs[index][0]+'px';
+          val.style.top = arrs[index][1]+'px';
+          val.indexX = arrs[index][0] +10;  //设置属性，保存刚开始的位置；
+          val.indexY = arrs[index][1];  //设置属性，保存刚开始的位置；
+          // val.bool = true;
+        })
+        console.log(elList);
+
+      }
+    }
+
+    function choose (obj) {//用于选择，当鼠标移动式选择相应的元素
+      var elList = obj.children;
+      var door = null;
+      document.addEventListener('mousedown',function (e) {
+        if (e.target.className!='canvas') {
+
+          for (var j = 0; j < elList.length; j++) {
+            elList[j].style.background = '';
+            elList[j].data = null;
+          }
+        }
+        var startx,starty,currentx,currenty;
+        door = true;
+        startx = e.clientX;
+        starty = e.clientY;
+
+        if (door==true&&lock != true) {
+          document.onmousemove=function (e) {
+              console.log(lock);
+                currentx = e.clientX;
+                currenty = e.clientY;
+                var copex = startx>=currentx?startx:currentx;
+                var copey = starty>=currenty?starty:currenty;
+                for (var i = 0; i < elList.length; i++) {
+
+                  if (copey<parseInt(elList[i].style.top) || copex<parseInt(elList[i].style.left) ) {
+                    elList[i].style.background = '';
+                    elList[i].data = false;
+                  } else {
+                    if ((copex-Math.abs(startx-currentx))>(parseInt(elList[i].style.left)+parseInt(elList[i].offsetWidth)) || (copey-Math.abs(starty-currenty))>(parseInt(elList[i].style.top)+parseInt(elList[i].offsetHeight))) {
+                      elList[i].style.background = '';
+                        elList[i].data = false;
+                    }else {
+                      // console.log(copex-Math.abs(startx-currentx),elList[0].offsetHeight);
+                      elList[i].style.background = '#eee';
+                      elList[i].data = true;
+                    }
+                  }
+                }
+              }
+          }
+
+      })
+      document.addEventListener('mouseup',function (e) {
+        document.onmousemove = null;
+        move(obj);//事件延后执行，当鼠标选择事件之后，移动事件启动
+                  //1.如果没有选中的东西，就直接返回
+                  //2.当有选择的事件时，运动开始
+      })
+    }
+
+    function move(obj) {
+      var elList = obj.children;
+      var arr = [];
+      for (var i = 0; i < elList.length; i++) {
+        if (elList[i].data == true) {
+            arr.push(elList[i]);
+        }
+      }
+      if (arr.length<1) {
+        return;
+      }else {
+
+        document.onmousedown = function  (e) {
+          console.log(e);
+          e = e || window.event;
+          e.preventDefault();
+          var startx,starty,currentx,currenty,dx,dy;
+          console.log(e.target.data);
+          if (e.target.className=='canvas'&&e.target.data == true) {
+            lock = true ;
+            console.log(lock);
+            startx = e.clientX;
+
+            starty = e.clientY;
+          }
+          if (lock) {
+            document.onmousemove = function (e) {
+              console.log(12);
+              currentx = e.clientX;
+              currenty = e.clientY;
+              dx = Math.abs(currentx-startx);
+              dy = Math.abs(currenty-starty);
+
+              for (var k = 0; k < arr.length; k++) {
+                arr[k].style.left = (currentx-startx)>0 ? (arr[k].indexX+dx +'px') : (arr[k].indexX-dx +'px');
+                arr[k].style.top = (currenty-starty)>0 ? (arr[k].indexY+dy +'px'): (arr[k].indexY-dy +'px');
+              }
+
+            }
+            document.onmouseup =function (e) {
+              for (var i = 0; i < arr.length; i++) {
+                if (arr[i].indexX+'px' != arr[i].style.left) {
+                    arr[i].indexX = parseInt(arr[i].style.left);
+                    arr[i].indexY = parseInt(arr[i].style.top);
+                }
+                arr[i].data =null;
+                arr[i].style.background = '';
+              }
+              lock = false;
+              document.onmousemove = null;
+              document.onmouseup = null;
+            }
+          }
+        }
+      }
+    }
+  </script>
+</html>
