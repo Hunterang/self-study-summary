@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+
+    </div>
+  <script type="text/javascript">
+  var prov = ['山西','北京','河北']
+  var city = [
+    {
+      '太原':[],
+      '临汾':[]
+    },
+    {
+      '北京':[],
+    },
+    {
+      '保定':[],
+      '石家庄': []
+    }
+  ]
+  function maoPao () {
+    var arg = Array.from(arguments)[0]
+    if(arg == null) return
+    var len = arg.length
+    for (var i = 0; i < len-1; i++) {
+      for (var j = 0; j < len-1-i; j++) {
+        if (arg[j]>arg[j+1]) {
+          var temp = arg[j]
+          arg[j] = arg[j+1]
+          arg[j+1] = temp
+        }
+      }
+      return arg
+    }
+  }
+  ///////////////////////////
+    var length =10
+    function fn() {
+      console.log(this.length)
+    }
+    var obj = {
+      length: 5,
+      method(fn){
+        fn()
+        arguments[0]()//arguments在这里改变了this的指向，this指向了参数（arguments）
+      }
+    }
+    obj.method(fn,1)
+  </script>
+  </body>
+</html>

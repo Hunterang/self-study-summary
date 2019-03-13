@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type='text/css'>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .text {
+        height: 321px;
+      }
+      .outer_container {
+        margin-left: 100px;
+        position: relative;
+        width: 800px;
+        height: 400px;
+        background: url(1.png) no-repeat center;
+        background-size: 100% 100%;
+      }
+      .inner_mirro {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        display: none;
+        background: url(1.png) no-repeat;
+        background-size: 1600px 800px;
+        z-index : 2;
+        border: 5px solid #333;
+        box-sizing: border-box;
+        /* opacity: 0.7  ; */
+        /* transition: 2s; */
+        /* opacity: 0; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text">
+
+    </div>
+    <div class="outer_container">
+      <div class="inner_mirro">
+
+      </div>
+    </div>
+    <script src='./js/mirro.js'></script>
+    <script type="text/javascript">
+    var target = document.querySelector('.outer_container'),
+           aim = document.querySelector('.inner_mirro')
+      mirro(target,aim)
+    </script>
+  </body>
+</html>
