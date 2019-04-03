@@ -34,6 +34,7 @@ function mirro(target,aim) {
         aim.style.backgroundPositionY = (-2*dstya + dstyb) + 'px'
     }
   }
+  //另外可以给放一张img图片这样也可以
 
   target.onmouseleave = function (e) {
     aim.style.display = 'none'

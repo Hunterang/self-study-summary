@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      .container {
+        width:240px;
+        height:40px;
+        overflow:hidden;
+      }
+      .picture_container {
+        float:left;
+        height:40px;
+        width:240px;
+        background:#333;
+      }
+      li {
+        width: 40px;
+        height: 40px;
+        list-style:none;
+        float:left;
+      }
+      .platform {
+        width: 480px;
+        height40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="platform">
+        <div class="picture_container">
+          <li class='a'>a</li>
+          <li class='s'>s</li>
+          <li class='d'>d</li>
+          <li class='f'>f</li>
+          <li class='g'>g</li>
+          <li class='h'>h</li>
+        </div>
+        <div class="picture_container">
+          <li class='a'>a</li>
+          <li class='s'>s</li>
+          <li class='d'>d</li>
+          <li class='f'>f</li>
+          <li class='g'>g</li>
+          <li class='h'>h</li>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="./run.js"></script>
+    <script type="text/javascript">
+    var contain = document.querySelector('.container'),
+        platform = document.querySelector('.platform')
+    run(contain)
+    </script>
+  </body>
+</html>

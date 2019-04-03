@@ -1,0 +1,20 @@
+
+<script type="text/javascript">
+  var  list = {
+    init(opt) {
+      this.name = opt
+    },
+    change() {
+      this.name = 'gouzi'
+    }
+  }
+  function Dog(obj) {
+    list.init.call(this,obj)
+    this.change = list.change.bind(this)
+  }
+  var d = new Dog('dog')
+
+  console.log(d)
+  d.change()
+  console.log(d)
+</script>

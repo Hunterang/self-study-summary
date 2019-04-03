@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript" src='./virtual.js'></script>
+    <script type="text/javascript">
+      var ul = el( 'ul', {'id': 'list'},[
+                el( 'li',{'class': 'item'},['item'] ),
+                el( 'li',{'class': 'item'},['item'] ),
+                el( 'li',{'class': 'item'},['item'] )
+              ])
+              console.log(ul);
+    var  domUl = ul.render()
+    document.body.appendChild( domUl )
+    </script>
+  </body>
+</html>

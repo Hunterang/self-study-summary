@@ -1,0 +1,42 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    .outer {
+      width: 200px;
+      height: 80px;
+      background: #333;
+      overflow: hidden;
+    }
+      .inner {
+        background: red;
+        width: 480px;
+        height: 80px;
+      }
+      .inner span {
+        width: 100px;
+        height: 80px;
+        display: block;
+        float: left;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class='inner'>
+        <span style="width:40px"></span>
+        <span style="background:#123456">a</span>
+        <span style="background:#654321">b</span>
+        <span style="background:#123456">c</span>
+        <span style="background:#654321">d</span>
+        <span style="width:40px"></span>
+      </div>
+    </div>
+    <script type="text/javascript" src="wiper.js"></script>
+    <script type="text/javascript">
+      o.init(40)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .stage {
+        margin: 50px auto;
+        perspective: 800px;
+        height: 200px;
+        width: 200px;
+        border: 1px solid #eee;
+      }
+      .box {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;
+        /* transform: rotateY(-30deg) rotateX(50deg); */
+      }
+      .box>div {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        opacity: 0.7;
+      }
+      .up {
+        transform: rotateX(-90deg) translateZ(100px);
+        /* transform: translateY(-100px); */
+        background: #123456;
+      }
+      .dowm{
+          transform: rotateX(90deg) translateZ(100px);
+          background: #654321;
+      }
+      .right {
+        transform: rotateY(-90deg) translateZ(100px);
+        background: #789;
+      }
+      .left {
+        transform: rotateY(90deg) translateZ(100px);
+        background: #987;
+      }
+      .forword {
+        transform: translateZ(100px);
+        background: #ace;
+      }
+      .behind {
+        transform: translateZ(-100px);
+        background: #fdb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="box">
+        <div class="up">1111</div>
+        <div class="dowm">222</div>
+
+        <div class="right">333</div>
+        <div class="left">444</div>
+        <div class="forword">555</div>
+        <div class="behind">666</div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var box = document.querySelector('.box'),
+          n = 0,rote
+      function rotate() {
+        requestAnimationFrame(rotate);
+        n = n == 180 ? 0 : n
+        n++
+        console.log(n);
+        rote = n*2
+        box.style.transform = 'rotateX('+rote+'deg) rotateY('+rote+'deg)'
+      }
+      rotate()
+    </script>
+  </body>
+</html>
