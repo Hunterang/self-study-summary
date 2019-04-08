@@ -1,0 +1,5 @@
+@function px2rem($px) {
+  $rem: 37.5px;
+  @return ($px / $rem)*1rem
+}
+//这个是rem适配基于苹果手机6的适配
