@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      .box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #eee;
+        background: #999;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+
+    </div>
+    <!-- <script type="text/javascript" src="./canvas.js"></script> -->
+    <script type="text/javascript" src="event.js"></script>
+    <script type="text/javascript">
+    class drag extends Event {
+      constructor(el) {
+        super()
+        this.el = el
+        this.startOffset = {}
+        this.startPoint = {}
+
+        let move = (e) => {
+          this.move(e)
+        }
+        let end = () => {
+          window.removeEventListener('mousemove',move)
+          this.trigger('end',this.el)
+        }
+        el.addEventListener('mousedown',(e) => {
+          this.dragStart(e)
+          window.addEventListener('mousemove',move)
+        })
+        window.addEventListener('mouseup',end)
+      }
+      dragStart(e) {
+        let { el } = this
+        this.startOffset = {
+          x: el.offsetLeft,
+          y: el.offsetTop
+        }
+        this.startPoint = {
+          x: e.clientX,
+          y: e.clientY
+        }
+        this.trigger('start',el)
+      }
+      move(e) {
+        let { startOffset,startPoint,el } = this
+        let distance = {
+          x: e.clientX - startPoint.x,
+          y: e.clientY - startPoint.y
+        }
+
+        el.style.left = startOffset.x + distance.x + 'px'
+        el.style.top = startOffset.y + distance.y + 'px'
+        this.trigger('moving',el)
+      }
+    }
+
+
+      var box = document.querySelector('.box')
+      var dom = new drag(box)
+      dom.on('start',(val) => {
+        val.style.background = '#123456'
+      })
+      dom.on('moving',(val) => {
+        val.style.background = '#fdb975'
+      })
+      dom.on('end',(val) => {
+        val.style.background = '#eee'
+      })
+      console.log(dom);
+    </script>
+  </body>
+</html>
