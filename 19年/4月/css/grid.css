@@ -1,0 +1,35 @@
+.container {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 5px 5px;
+}
+
+/*
+*1.上面grid布局将一个500*500的地方分割成一个9宫格
+*2.1fr属于grid专属用语，默认尺寸，也可以把1fr改写成 40%或xxpx也可以
+*3.grid-gap 间距第一个表示横轴方向的间距，第二个表示纵轴方向的间距
+*
+*/
+.container>div {
+  border: 1px dashed gray;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div3 {
+  grid-column: 1/4;
+  grid-row: 2/3;
+  background: #55aa66;
+}
+/*
+*1. 上面的div3表示横轴方向从第一条线到第四条线grid-column
+*2. grid-row 表示从第二条横线到第三条横线
+*3. 横竖之间的距离便是该div所占据的空间
+*/
+/**
+*表示方法还有其他2种，这种是我认为最为简单的写法。
+**/

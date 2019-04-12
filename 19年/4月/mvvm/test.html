@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+
+    </div>
+    <script type="text/javascript">
+    //双向绑定的核心在于改变object，object改变以后将相应的依赖者进行提醒
+    //get必须返回相应的值，set也必须将值存储进去。get|set方法是会一起执行的？
+    var div = document.querySelector('div')
+    var data = {}
+    var key = 'names'
+    // defineObject(data,key)
+    // data['names'] = 'halo'
+    // console.log(data);
+    function defineObject(data,key,val) {
+
+      check(val)
+
+      var deep = new Deep
+
+      Object.defineProperty(data,key,{
+        get: function() {
+
+          if (Deep.target) {
+            deep.collect(Deep.target)
+          }
+
+            return val
+        },
+        set: function(vals) {
+          if (val == vals) {
+            return
+          }
+          val = vals
+
+          deep.trigger()
+        }
+      })
+    }
+
+      function check(val) {
+        if (!val || typeof val !== 'object') {
+          return
+        }
+        Object.keys(val).forEach(k => {
+          defineObject(val,k,val[k])
+        })
+      }
+
+      class Deep {
+        constructor() {
+          this.arr = []
+        }
+        collect(val) {
+          if (!this.arr.include(val)) {
+            this.arr.push(val)
+          }
+        }
+        trigger() {
+          if ( this.arr.length > 0 ) {
+            this.arr.forEach(v =>{
+              v.update()
+            })
+          }
+        }
+      }
+
+      function Watcher(cb,vm,val) {
+
+      }
+
+
+    function compile() {
+
+    }
+
+    //仍在探究中，编译时候会把watcher添加到deep下的arr中，当更改对象的时候，触发deep的notify，将所有的订阅者都遍历一遍
+    //现在主要的问题是watcher的设计以及同complie直接如何联系，完全懂之后就可以实现简易版的mvvm
+    </script>
+  </body>
+</html>
