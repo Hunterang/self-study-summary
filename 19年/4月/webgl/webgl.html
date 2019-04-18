@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script type="text/javascript" src="./gl-matrix.js"></script>
+    <script type="text/javascript">
+
+    let { mat4 } = glMatrix
+
+    var canvas = document.getElementById('canvas')
+    var gl = canvas.getContext('webgl');
+    //创建视口，绘制面积
+    gl.viewport(0,0,canvas.width,canvas.height)
+    console.log(gl);
+    //生成缓冲集合（xiangliang）->生成buffer->构建图元(由buffer存储)
+    function creatSqure(gl) {
+      var vertexbuffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER,vertexbuffer)
+      var verts = [
+        -1.0, -1.0, 1.0,
+         1.0, -1.0, 1.0,
+         1.0, 1.0, 1.0,
+         -1.0, -1.0, 1.0,
+
+         -1.0, - 1.0, -1.0,
+          1.0,  1.0, -1.0,
+          1.0, 1.0, -1.0,
+          1.0, -1.0, -1.0,
+
+          -1.0,  1.0, -1.0,
+           -1.0,  1.0, 1.0,
+            1.0, 1.0, 1.0,
+           1.0, 1.0, -1.0,
+
+           -1.0,  -1.0, -1.0,
+            1.0, - 1.0, -1.0,
+            1.0, -1.0, 1.0,
+            -1.0, -1.0, 1.0,
+
+            1.0,  -1.0, -1.0,
+             1.0,  1.0, -1.0,
+            1.0, 1.0, 1.0,
+             1.0, -1.0, 1.0,
+
+             -1.0,  -1.0, -1.0,
+              -1.0,  -1.0, 1.0,
+             -1.0, 1.0, 1.0,
+              -1.0, 1.0, -1.0,
+
+      ]
+      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(verts),gl.STATIC_DRAW)//Float32Array二进制存储数组，读取快，占内存少
+
+      var colorBuffer = gl.createBuffer()
+      gl.bindBuffer(gl.ARRAY_BUFFER,colorBuffer);
+      var faceColors = [
+        [1.0,0.0,0.0,1.0],
+        [0.0,1.0,0.0,1.0],
+        [0.0,0.0,1.0,1.0],
+        [1.0,1.0,0.0,1.0],
+        [1.0,0.0,1.0,1.0],
+        [0.0,1.0,1.0,1.0]
+      ];
+      var vertexColors = [];
+      for (var i in faceColors) {
+          var color = faceColors[i];
+          for (var j = 0; j < 4; j++) {
+            vertexColors = vertexColors.concat(color)
+          }
+      }
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexColors),gl.STATIC_DRAW)
+
+      var cubeIndexBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ELEMENT_ARRART_BUFFER,cubeIndexBuffer)
+      var cubIndexs = [
+        0,1,2,    0,2,3,
+        4,5,6,    4,6,7,
+        8,9,10,   8,10,11,
+        12,13,14, 12,14,15,
+        16,17,18, 16,18,19,
+        20,21,22, 20,22,23
+      ]
+      gl.bufferData(gl.ELEMENT_ARRART_BUFFER, new Unit16Array(cubIndexs),gl.STATIC_DRAW)
+
+      var squre = { buffer:vertexbuffer, colorBuffer: colorBuffer, indexBuffer: cubeIndexBuffer,
+         vertSize:3, nVerts:4, colorSize: 4, nColor: 24, nIndex: 36,
+         primtype:gl.TRIANGLES};
+
+      return squre
+    }
+
+
+
+    console.log(glMatrix);
+    //创建一个模型-视图矩阵,包含一个位于modelViewMatrix,[0,0,-3.333]的相机
+      var modelViewMatrix = mat4.create()//4*4矩阵
+      console.log(modelViewMatrix);
+      mat4.translate(modelViewMatrix,modelViewMatrix,[-0.0,0.0,-6.0])
+
+      //创建一个45度角视野的投影矩阵
+
+      var projectionMatrix = mat4.create()
+      mat4.perspective(projectionMatrix,Math.PI/4,canvas.width/canvas.height,.1,100)
+      console.log(canvas.width/canvas.height);
+      console.log(Math.PI/4);
+      //定点着色器的需要输入的数据
+      const vertexShaderSourse =
+      `
+       attribute vec4 vertexPos;
+       attribute vec4 vertexColors;
+       uniform mat4 umodelViewMatrix;
+       uniform mat4 uprojectionMatrix;
+       varying vec4 vColor;
+       void main() {
+       gl_Position = uprojectionMatrix * umodelViewMatrix * vertexPos;
+       vColor = vertexColors
+       }
+       `;
+
+      var fragmentShaderSource =`
+      precision mediump float;
+      varying vec4 vColor;
+      void main() {
+        gl_FragColor = vColor;
+      }
+      `;
+
+      //创建着色器
+      //定点着色器；片段着色器
+      //包含 顶点着色器负责将物体坐标转换为2d显示区，片段着色器负责计算转换好的顶点像素的最终颜色输出
+      //顶点着色器包含顶点位置vertexPos,模型-视图矩阵，投影矩阵的数值，这些数值与输入数值结合计算，构建最终的、平移好的
+      //顶点数据，而片段着色器则简单的输出设定好的白色
+
+
+      function createShader ( gl,str,type) {
+        var shader = gl.createShader(type);
+
+        gl.shaderSource(shader,str);
+
+        gl.compileShader(shader);
+
+        if (!gl.getShaderParameter(shader,gl.COMPILE_STATUS)) {
+          console.log(gl.getShaderInfoLog(shader));
+          return null;
+        }
+
+        return shader;
+      }
+
+
+
+         var shaderProgram,shaderVertexPositonAttribute,
+              shaderVertexColorAttribute,
+              shaderProjectionMatrixUniform,
+              shaderModelViewMatrixUniform
+
+              function initShader(gl) {
+                //加载并且编译片段和顶点着色器
+                var fragmentShader = createShader(gl,fragmentShaderSource,gl.FRAGMENT_SHADER)
+                var vertexShader = createShader(gl,vertexShaderSourse,gl.VERTEX_SHADER)
+                console.log(fragmentShader);
+                //将着色器连接到一段新的程序中
+                shaderProgram = gl.createProgram()
+                gl.attachShader(shaderProgram,vertexShader);
+                gl.attachShader(shaderProgram,fragmentShader);
+                gl.linkProgram(shaderProgram)
+
+                //获取指向着色器参数的指针
+                shaderVertexPositonAttribute = gl.getAttribLocation(shaderProgram,'vertexPos')
+                shaderVertexColorAttribute = gl.getAttribLocation(shaderProgram,'vertexColors')
+                shaderProjectionMatrixUniform = gl.getUniformLocation(shaderProgram,"uprojectionMatrix")
+                shaderModelViewMatrixUniform = gl.getUniformLocation(shaderProgram,"umodelViewMatrix")
+
+                if (!gl.getProgramParameter(shaderProgram,gl.LINK_STATUS)) {
+                  console.log('COULD NOT INITIALIZE SHADERS');
+                  return null;
+                }
+              }
+              initShader(gl)
+
+
+              function draw (gl,obj) {
+                gl.clearColor(0.0,0.0,0.0,1.0);
+                gl.clear(gl.COLOR_BUFFER_BIT)
+
+                //设置待绘制的顶点缓冲
+                gl.bindBuffer(gl.ARRAY_BUFFER,obj.buffer)
+                gl.bindBuffer(gl.ARRAY_BUFFER,obj.colorBuffer)
+                gl.vertexAttribPointer(shaderVertexColorAttribute,obj.colorSize,gl.FLOAT,false,0,0);
+                  gl.enableVertexAttribArray(shaderVertexColorAttribute);
+
+
+                gl.bindBuffer(gl.ELEMENT_ARRART_BUFFER,obj.indexBuffer)
+                //建立着色器参数之间的关联，顶点和投影/模型矩阵
+                gl.vertexAttribPointer(shaderVertexPositonAttribute,obj.vertSize,gl.FLOAT,false,0,0);
+                  gl.enableVertexAttribArray(shaderVertexPositonAttribute);
+                //设置待用的着色器
+                gl.useProgram(shaderProgram);
+                gl.uniformMatrix4fv(shaderProjectionMatrixUniform,false,projectionMatrix);
+                gl.uniformMatrix4fv(shaderModelViewMatrixUniform,false,modelViewMatrix);
+                gl.drawArrays(obj.primtype,obj.nIndex,gl.UNSIGNED_SHORT,4);
+              }
+
+
+              var squre = creatSqure(gl)
+              draw(gl,squre)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
