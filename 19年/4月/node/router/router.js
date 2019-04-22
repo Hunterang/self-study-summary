@@ -10,16 +10,19 @@ function Express = function () {
 
   }
   app.get = function (str,cb) {
-
+    if (!str.endsWith('/')) {
+      
+    }
 
 
     self._get[str].push(cb)
   }
   app.post = function (str,cb) {
 
+    self._post[str].push(cb)
   }
 }
 
 function checkres (res) {
-  
+
 }

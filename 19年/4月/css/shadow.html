@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+      .bow {
+        width: 300px;
+        height: 80px;
+        margin: 50px auto;
+        box-shadow: 0 1px 5px #436987,0 0 40px rgba(0,0,0,.1) inset;
+      }
+      .corner {
+        margin: 50px auto;
+        width: 300px;
+        height: 80px;
+        position: relative;
+          /* box-shadow: 0 1px 5px #436987,0 0 40px rgba(0,0,0,.1) inset; */
+      }
+      .corner::before,.corner::after {
+        position:absolute;
+        content: "";
+        width: 300px;
+        height: 80px;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: rgba(255,255,255,.1);
+      }
+      .corner::before {
+        box-shadow: 0 -5px 15px rgba(0,0,0,.1);
+      }
+      .corner::after {
+        box-shadow: 0 5px 15px rgba(0,0,0,.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bow">
+
+    </div>
+    <div class="corner">
+      我飘起来了吗？
+    </div>
+  </body>
+</html>

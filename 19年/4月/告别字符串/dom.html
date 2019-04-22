@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type='text/css'>
+      .a {
+        height: 300px;
+        margin: 10px 0;
+        background: #112223;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <script type="text/javascript" src = './el.js'></script>
+    <script type="text/javascript">
+      var doms = document.querySelectorAll('.a')
+      doms = [...doms]//扩展运算符将类arr转arr === array.from(doms)
+      //Array.from(new set(arr)) 去重
+      var last = doms.slice(-1)[0] //doms.pop()
+      var distance = last.getBoundingClientRect()
+      //用distance同scrollTop比较，可以制作手机列表查询的方法，根据缓冲运动做出移动效果，或者css3也可以
+      console.log(distance);
+      var data = [
+        {
+          dleft: 'woshidiv',
+          ps: 'woships',
+          px: 'wpshipx'
+        },
+        {
+          dleft: 'woshidiv',
+          ps: 'woships',
+          px: 'wpshipx'
+        },
+        {
+          dleft: 'woshidiv',
+          ps: 'woships',
+          px: 'wpshipx'
+        },
+        {
+          dleft: 'woshidiv',
+          ps: 'woships',
+          px: 'wpshipx'
+        }
+      ]
+      function creatOpt ( data ) {
+        var childrens = []
+        data.forEach( v => {
+          var child = {
+            ele: 'li',
+            attrs: {
+              'class': 'li_father'
+            },
+            childrens: [
+              {
+                ele: 'div',
+                attrs: { 'class': 'c_div'},
+                childrens: v['dleft']
+              },{
+                ele: 'p',
+                attrs: { 'class': 'c_ps'},
+                childrens: v['ps']
+              },{
+                ele: 'p',
+                attrs: { 'class': 'c_px'},
+                childrens: v['px']
+              }
+            ]
+          }
+          childrens.push(child)
+        })
+
+        return childrens
+      }
+      var childrens = creatOpt(data)
+      var opt = {
+        ele: 'ul',
+        attrs: {
+          'class': 'root_ul'
+        },
+        childrens: childrens
+      }
+      var rootDom = el(opt)
+      console.log(rootDom);
+    </script>
+  </body>
+</html>
