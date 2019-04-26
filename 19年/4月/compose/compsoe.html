@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+    class kkk {
+      constructor() {
+        this.fnArr = []
+      }
+      compose() {
+        let that = this
+        return function (x) {
+
+          return  that.fnArr.reduce( (result,cb) => {
+              return cb(result)
+          }, x)
+        }
+      }
+      add(cb) {
+        this.fnArr.push(cb)
+      }
+    }
+
+      var k = new kkk()
+      console.log(k);
+      k.add( (v) => v.toUpperCase())
+      k.add( v => v.replace(/^\w/,'yh'))
+      k.add( v => v.split(''))
+
+      var newFn = k.compose()
+      var a =newFn('helloworld')
+      console.log(a);
+    </script>
+  </body>
+</html>
