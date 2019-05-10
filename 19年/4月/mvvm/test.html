@@ -17,39 +17,42 @@
     // defineObject(data,key)
     // data['names'] = 'halo'
     // console.log(data);
-    function defineObject(data,key,val) {
 
-      check(val)
-
-      var deep = new Deep
-
-      Object.defineProperty(data,key,{
-        get: function() {
-
-          if (Deep.target) {
-            deep.collect(Deep.target)
-          }
-
-            return val
-        },
-        set: function(vals) {
-          if (val == vals) {
-            return
-          }
-          val = vals
-
-          deep.trigger()
-        }
-      })
-    }
-
-      function check(val) {
+      function observe(val) {
         if (!val || typeof val !== 'object') {
-          return
+          return val
         }
         Object.keys(val).forEach(k => {
           defineObject(val,k,val[k])
         })
+
+
+        function defineObject(data,key,val) {
+
+          observe(val)
+
+          var deep = new Deep()
+
+          Object.defineProperty(data,key,{
+            get: function() {
+
+              if (Deep.target) {
+                deep.collect(Deep.target)
+              }
+
+                return val
+            },
+            set: function(vals) {
+              if (val == vals) {
+                return
+              }
+              val = vals
+
+              deep.trigger()
+            }
+          })
+        }
+
       }
 
       class Deep {
@@ -75,7 +78,7 @@
       }
 
 
-    function compile() {
+    function Compile() {
 
     }
 

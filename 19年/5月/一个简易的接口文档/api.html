@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>api接口</title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        padding: 40px 30px 0;
+        background: #eee;
+        box-sizing: border-box;
+        overflow: hidden;
+
+      }
+      ul {
+        list-style: none;
+      }
+      ul li.li_dom {
+        width: 60%;
+        padding:  30px 50px;
+        border-bottom: 1px dashed grey;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        margin-left: 350px;
+      }
+
+      .p_top {
+        padding: 10px 0;
+      }
+      .p_btm {
+        position: relative;
+        overflow-x: auto;
+        box-sizing: border-box;
+        background: #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 15px #abcdef;
+      }
+      /* .p_btm::before {
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          box-shadow: 0 1px 5px #abcdef;
+      }
+      .p_btm::after {
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 10;
+          box-shadow: 0 1px 5px #abcdef;
+      } */
+      a {
+        text-decoration: none;
+        color: #990055;
+      }
+      span {
+        color: #123789;
+        cursor: pointer;
+      }
+      .ul_top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-left: 40px;
+        margin: 0;
+        overflow: hidden;
+      }
+      .top_li {
+        width: 280px;
+        border: none;
+        margin-right: 10px;
+        line-height: 50px;
+        background: #aaa;
+        cursor: pointer;
+        padding: 0 10px;
+      }
+      .top_li:hover {
+        opacity: .8;
+      }
+      .to_top {
+        text-align: center;
+        width: 60px;
+        height: 40px;
+        line-height: 40px;
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        background: #654545;
+        font-size: 12px;
+        border-radius: 6px;
+        box-shadow: 0 0 15px #233233 inset;
+        cursor: pointer;
+        opacity: 0;
+        transition: .5s;
+      }
+      .active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tag">
+
+    </div>
+    <div class="to_top">
+      返回顶部
+    </div>
+    <div class="container">
+    </div>
+    <script type="text/javascript">
+    function toTop (el) {
+      window.addEventListener('scroll',function(e) {
+        // console.log(document.documentElement.scrollTop);
+        if (document.documentElement.scrollTop > 400) {
+          el.classList.add('active')
+          el.addEventListener('click',go,false)
+        }else {
+            el.removeEventListener('click',go,false)
+          Array.from(el.classList).indexOf('active') > -1
+          ? el.classList.remove('active')
+          : ''
+        }
+      })
+
+      function go () {
+        window.scrollTo(0,0)
+      }
+    }
+    var toTops = document.querySelector('.to_top')
+    toTop(toTops)
+    var list = [
+      {
+        '接口功能': '获取所有机房',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">gtrmName</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                    {
+                      "msg":"机房名称",
+                      "data":[
+                        {"Name":"环境主机"},
+                        {"Name":"电柜"},
+                        ...rest
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?gtrmName=按位置排列</span>',
+      },
+      {
+        '接口功能': '获取某个机房下的所有传感器',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">gtsenName</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                    {
+                      "msg":"机房名称",
+                      "data":[
+                        {"DisplayName":"一楼消防","SensorIndex":"2918","type":"3072","SensorValue":"1.00","unitstr":"无单位","Flag":null,"Message":null,"max(Time)":"2019-05-09 16:19:08"},
+                        {"DisplayName":"市电停电","SensorIndex":"2919","type":"3072","SensorValue":"1.00","unitstr":"无单位","Flag":null,"Message":null,"max(Time)":"2019-05-09 16:19:09"}
+                        ...rest
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?gtsenName=环境主机</span>',
+      },
+      {
+        '接口功能': '获取某个机房下某个传感器信息',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">rmName</a>,必填字段<a href="void:javascript">senName</a>,该字段为必填字段',
+
+        '返回结果': `<pre>
+                  {
+                    "msg":"一楼消防传感器详情",
+                    "data":[
+                      {
+                        "No":"2918","IP":"192.168.1.110",
+                        "ID":"1",
+                        ......
+                    </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名speed/appsensordata.php?rmName=环境主机&senName=一楼消防</span>',
+      },
+      {
+        '接口功能': '获取某sensor下的某段时间内数据',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">senIndex</a>,该字段为必填字段||<a href="void:javascript">begintime</a>,该字段为选填字段（默认当天0点）||<a href="void:javascript">endtime</a>,选填字段（默认当前时间）',
+
+        '返回结果': `<pre>
+                  {"count":3,
+                  "msg":"区间数据",
+                  "data":[
+                    {"num":"3","SensorIndex":"2918","SensorValue":"1.00","Time":"2019-05-09 00:02:39"},
+                    {"num":"6","SensorIndex":"2918","SensorValue":"1.00","Time":"2019-05-09 00:05:25"},
+                    </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?senIndex=2918&begintime=2019-05-09 00:00:00&endtime=2019-05-09 15:10:10</span>',
+      },
+      {
+        '接口功能': '获取传感器当前数据',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">sIndx</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                  {
+                    "msg":"传感器的当前数据",
+                    "data":[
+                      {"DisplayName":"一楼消防",
+                        "SensorIndex":"2918"
+                        ...rest
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?sIndx=2918</span>',
+      },
+      {
+        '接口功能': '传感器数量和报警数量',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">requst</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                    {
+                      "msg":"数量统计",
+                      "data":{"sensorCount":"506","currentAlarm":"2"}
+                    }
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?requst=count</span>',
+      },
+      {
+        '接口功能': '最近报警信息',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">requst</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                    {"msg":"最近100条数据",
+                    "data":[
+                      {"AlarmTime":"2019-05-09 16:20:25","UnitName":"A","DisplayName":"馈线柜5 电流3","Message":"下限报警","SensorValue":"294.40","SensorOverValue":"800.00","SensorLowerValue":"300.00","SensorIndex":"2997","Name":"电柜","SensorCurrentValue":"311.00","SensorLastUpdateTime":"2019-05-09 16:38:46","Flag":null},
+                      {"AlarmTime":"2019-05-09 16:20:24","UnitName":"A","DisplayName":"馈线柜5 电流1","Message":"下限报警","SensorValue":"296.00","SensorOverValue":"800.00","SensorLowerValue":"300.00","SensorIndex":"2995","Name":"电柜","SensorCurrentValue":"315.20","SensorLastUpdateTime":"2019-05-09 16:38:46","Flag":null}
+                      ...rest
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?requst=LastestAlarm</span>',
+      },
+      {
+        '接口功能': '获取最近一条报警信息',
+        '方法': 'get',
+        'URL': '<span>http://个人服务器IP或者域名/speed/appsensordata.php</span>',
+        '参数':
+          '<a href="void:javascript">requst</a>,该字段为必填字段',
+
+        '返回结果':
+                  `<pre>
+                    {
+                      "msg":"最近1条数据",
+                      "data":[
+                        {"AlarmTime":"2019-05-09 16:20:25",
+                        "UnitName":"A",
+                        "DisplayName":"馈线柜5 电流3",
+                        ...rest
+                  </pre>`,
+        '接口示例': '<span>http://个人服务器IP或者域名/speed/appsensordata.php?requst=newOne</span>',
+      },
+
+    ]
+
+
+
+    function createObj (el,className) {
+      var obj = Object.create(null)
+      obj.el = el
+      obj.attr = {
+        "class": className
+      }
+      obj.children = []
+
+      return obj
+    }
+
+    function creatChild(list) {
+      var children = []
+      list.forEach( l => {
+        var objli = createObj('li','li_dom')
+
+        Object.keys(l).forEach( k => {
+
+          var objp = createObj('h4','p_top')
+          objp.children.push(k)
+
+          var objp1 = createObj('p','p_btm')
+          objp1.children.push(l[k])
+
+
+          objli.children.push(objp)
+          objli.children.push(objp1)
+        })
+        children.push(objli)
+      })
+
+      return children
+    }
+
+    var children = creatChild(list)
+    var optul = createObj('ul','ul_class')
+        optul.children = children
+
+
+
+       function vdom(opt) {
+         let { el,attr,children } = opt
+         if (!el) {
+           warn('dom needed')
+         }
+         var $el = document.createElement(el)
+         if (Object.keys(attr).length) {
+           Object.keys(attr).forEach( k => {
+             $el.setAttribute(k,attr[k])
+           })
+         }
+
+         children.forEach( v => {
+           if (typeof(v) === 'object') {
+             var childNode = vdom(v)
+             $el.appendChild(childNode)
+           }else {
+             append($el,v)
+           }
+
+         })
+
+         function append(el,v) {
+           el.innerHTML = v
+         }
+         return $el
+       }
+       var uls = vdom(optul)
+
+       function compile(root,obj) {
+         var root = document.querySelector(root)
+         root.appendChild(obj)
+       }
+
+       compile('.container',uls)
+
+
+      var tag = []
+      list.forEach( v => {
+        tag.push(v['接口功能'])
+      })
+
+      var childs=[];
+      tag.forEach( v=> {
+        var li = createObj('li','top_li')
+        li.children.push(v)
+        childs.push(li)
+      })
+
+      var topUl = createObj('ul','ul_top')
+        topUl.children = childs
+        var domul = vdom(topUl)
+        compile('.tag',domul)
+
+        function handle(ul) {
+          ul.addEventListener('click',function(e){
+            jump(e,ul)
+          })
+
+
+          function jump(e,ul) {
+            var e = e || window.event
+            var dom = e.target.textContent
+            var index = 0;
+            list.forEach( (v,k) => {
+              if (v['接口功能'] === dom) {
+                index = k
+              }
+            })
+            var apiLi = uls.children
+            var currentLi = Array.from(apiLi)[index]
+            var rect = currentLi.getBoundingClientRect()
+            rect = parseInt(rect.top )
+            //可以设置缓冲动画|帧动画，此处忽略
+            window.scrollTo(0,rect)
+          }
+        }
+
+        handle(domul)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="">
+      </div>
+      <div class="">
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      // const object = {
+      //
+      //     b: function() {
+      //
+      //     }
+      //
+      // }
+      // object.b()
+      //
+      // var person = {
+      //   a: '1'
+      // }
+      // person.bind(object)
+      // console.log(person);
+
+
+      Compile.prototype  =  {
+        node2Fragment: function(el) {
+          var fragment = document.createDocumentFragment(),
+              child;
+              console.log(fragment);
+              while (child = el.firstChild) {
+                console.log(el.firstChild);
+                fragment.appendChild(child)
+
+              }
+              return fragment;
+        },
+
+        init: function () {},
+
+
+        isElementNode: function(node) {
+          return node.nodeType == 1
+        }
+      }
+        new Compile('#app')
+      function Compile ( el,vm ) {
+        this.$vm = vm
+        this.$el = this.isElementNode(el) ? el : document.querySelector(el)
+        if (this.$el) {
+          this.$fragment = this.node2Fragment(this.$el)
+          this.init()
+          this.$el.appendChild(this.$fragment)
+        }
+      }
+
+
+
+    </script>
+  </body>
+</html>

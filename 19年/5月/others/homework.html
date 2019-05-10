@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var a = {'n': 1}
+      var b = a
+      a.x = b = {'n': 2}
+      console.log(a)
+      console.log(b)
+
+      //根据多次测试得知'.'的优先级要比'='高，所以在运算过程中a.x会优先执行
+      //得出的结果是 {'n':2}和{'n':1,x:{'n':2}}
+    </script>
+  </body>
+</html>

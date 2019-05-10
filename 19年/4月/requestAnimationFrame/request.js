@@ -22,3 +22,4 @@ window.requestAnimationFrame(count)
 function cancle () {
   window.cancelAnimationFrame(count)
 }
+//根据测试得知帧动画中的回调函数传参不起作用，所以需要引入全局变量
