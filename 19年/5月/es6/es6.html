@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      //var ,let,const
+      //var 变量提升，可以重复声明后者覆盖前者
+      //let const 生成块级作用域，不会变量提升，不允许重复声明 let定义变量，const定义常量，一旦定义必须赋值且不允许修改
+
+//·················································
+      //函数
+      function test () {
+        console.log(1);
+      }
+      var test1 = function () {
+        console.log(2);
+      }
+      //es6箭头函数
+      let test0 = () => {}
+      let test12 = v => v+10//相当于直接返回值
+
+      //this指向问题，es6中的箭头函数内部的this继承父级作用域的this指向
+      //es5中的this指向调用函数的对象，new关键字this指向生成的实例
+//·················································
+    //解构赋值
+    let { a,b,c} = { a:1,b:2,c:3}
+
+    let obj = { as:1,bs:2,cs:3 }
+    let {as,bs,cs} = obj
+    //对象解构赋值必须键值对一致
+    let [aa,bb,cc] = [1,2,3]
+    console.log(aa);
+
+//···············es5闭包··································
+var bts = document.querySelectorAll('.bts');
+for (var i = 0; i < bts.length; i++) {
+  bts[i].onclick = function () {
+    console.log(i);
+  }
+}
+//上面的方法由于执行过程中i不存在块级作用域导致i始终处于全局状态所以函数执行完成之后 i=== bts.length
+for (let j = 0; j < array.length; j++) {
+  bts[j].onclick = function () {
+    console.log(j);
+  }
+}
+//let方法完美结局每个块级元素定义一个i 执行之后，全局作用域中的function引用i所以不会被释放
+
+
+for (var i = 0; i < bts.length; i++) {
+  (function(i) {
+    bts[i].onclick = function () {
+      console.log(i);
+    }
+  }(i))
+
+//匿名函数每执行一次都会在堆中产生一个对象，由于执行的原因，在Ao对象内部会将i实际的值保留下来可以如下理解
+    // AO = {
+    //   i : '实际传入的数值保留',
+    //   fn: 'onclick事件的存储'
+    // }
+    //在内部函数执行上下文的时候，会从自身开始找i最终在匿名函数的ao中找到了i，是一个传入的实际数据，类似于let在每个作用域中存储一个数据。
+}
+
+//闭包的实际用途 1.单例模式开发 2.全局变量存储 3.保证数据不被污染，例如vue的框架，jq框架 4.将后台数据请求存储，减少http等等，这个是开发的核心，回调套用回调
+
+// let fn = function () {
+//   var o = {}
+//   return {
+//     set(val) {
+//       o.content = val
+//     },
+//     get() {
+//       return o.content || ''
+//     }
+//   };
+// }
+//···············es5构造函数··································
+//原型链的方法是比较常见的一种
+// function Person (name,age,work) {
+//   this.name = Name
+//   this.age = age
+//   this.work = work
+// }
+// Person.prototype.say =function () {
+//
+// }
+
+//call 继承感觉很奇怪  //圣杯的方式似乎很多—__proto__四次
+      // Father.prototype.say = function () {
+      //   console.log(this.work);
+      // }
+      // function Father(porty,work) {
+      //     this.porty = porty
+      //     this.work = work
+      // }
+      //
+      // function Child (porty,work,name) {
+      //   if (this.constructor!==Child) {
+      //     return false
+      //   }
+      //   Father.call(this,porty,work)
+      //   this.name = name
+      // }
+      // Child.prototype = new Father()
+      // Child.prototype.constructor = Child
+      // Child.prototype.show = function () {
+      //   console.log(this.porty);
+      // }
+
+  //es6  class一个类，直接创建构造器，类中添加方法，extends继承其他的类，super使用它的构造函数
+  // class machine {
+  //   constructor(opt) {
+  //     this.price = opt.weight
+  //     this.weight = opt.weight
+  //   }
+  //   work() {
+  //     console.log('iam working');
+  //   }
+  // }
+  // class person extends machine{
+  //   constructor(opt) {
+  //     super(opt)
+  //     this.name = opt.name
+  //   }
+  //   say() {
+  //     console.log(this.nme);
+  //   }
+  // }
+
+  //promise promise.resolve() promise.reject() promise.all()-->类似同步执行，可以等到中间的异步操作
+  //async await 异步转为同步操作
+    </script>
+  </body>
+</html>

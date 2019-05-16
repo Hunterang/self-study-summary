@@ -1,7 +1,7 @@
 function move (obj,option,fn) {
     option = option || {};
     clearInterval(obj.timer) //一般都是点击事件触发，每次触发清除上一次的定时器，从新开启定时器，这样定时器不会重复，在防抖中有类似的应用
-       obj.timer = setInterval(function () {
+       obj.timer = setInterval(function () {//清除之后还是有点时间上的影响设置为if(object.timer) return
             var stop = true;
             for(var key in option) {
               var currentAttr = parseInt(getstyle(obj,key))
