@@ -1,14 +1,6 @@
 
-// class ffchart {
-//   constructor() {
-//
-//   }
-//   init(option) {
-//
-//   }
-// }
 
-var fchart = {  
+var fchart = {
   stars: [],
   area: {},
   size: {
@@ -23,9 +15,10 @@ var fchart = {
        this.$can.width =
        parseInt(window.getComputedStyle(el,null)['width'])||document.documentElement.clientWidth
        this.$can.height = document.documentElement.clientHeight
+       this.$can.style.background = '#122233'
        el.appendChild(this.$can)
      }
-     this.$cxt = this.$can.getContext('2d')
+     this.cxt = this.$can.getContext('2d')
      this.area = {
        w: this.$can.width,
        h: this.$can.height
@@ -34,46 +27,65 @@ var fchart = {
   },
   setOption(opt) {
      this.num = opt.num || 100
-     let { stars,random,area } = this
+     let { stars,random,area,cxt,size} = this
      for (var i = 0; i < this.num; i++) {
        let point = {
            x : random(0,area.w-4),
            y: random(0,area.h-4),
-           xv: random(0,4),
-           yv: random(0,4),
+           xv: random(-4,4),
+           yv: random(-4,4),
            shape:  Math.random() > 0.5 ? 'square': 'circle'
        }
        stars.push(point)
      }
-     console.log(stars);
+
+     let timer = setInterval(() => {
+       cxt.clearRect(0,0,area.w,area.h)
+
+       stars.forEach( v => {
+
+         if (v.x + v.xv > area.w-4) {
+           v.xv = -Math.abs(v.xv)
+         }
+         if (v.x <= 0) {
+           v.xv = Math.abs(v.xv)
+         }
+         if (v.y + v.yv > area.h-4) {
+           v.yv = -Math.abs(v.yv)
+         }
+         if (v.y <= 0) {
+           v.yv = Math.abs(v.yv)
+         }
+
+         v.x = v.x + v.xv
+         v.y = v.y + v.yv
+         let opt = {
+           x: v.x,
+           y: v.y,
+           shape: v.shape
+         }
+
+         this.drawPoint(cxt,opt)
+       })
+
+     },1000/60)
   },
   drawPoint(cxt,opt) {
-    // let { size,area } = this
-    // let point = {
-    //   x : this.random(0,area.w-4),
-    //   y: this.random(0,area.h-4)
-    // }
 
+    let { size } = this
     cxt.beginPath()
+    cxt.fillStyle ='#557861'
     // var shape = Math.random > .5 ? 'square': 'circle'
     if (opt.shape == 'square') {
-      cxt.fillReact(point.x,point.y,point.x+size.len,point.y+size.len)
+      cxt.fillRect(opt.x,opt.y,size.len,size.len)
     }else {
-      cxt.arc(point.x,point.y,size.r,0,Math.PI*2)
+      cxt.arc(opt.x,opt.y,size.r,0,Math.PI*2)
     }
     cxt.fill()
   },
-  animate() {
-    let { area,stars } = this
-    var opts,i
-    this.cxt.clearReact(0,0,area.w,area.h)
-    for (i = 0; i < this.num; i++) {
-       opts = {
-         x: this.random(0,4),
-         y: this.random(0,4),
-       }
-      initPoint( this.cxt, opts )
-    }
+
+  link() {
+
   },
   random(s,end) {
     return Math.floor(Math.random()*(end-s)) + s

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <img src="1.png" alt="" style="display:none">
+    <script type="text/javascript">
+      let el = document.getElementById('canvas')
+      let liz = {
+        can: null,
+        pic: document.getElementsByTagName('img')[0],
+        arrs: [],
+        init(el,opt) {
+          this.$opt = opt
+          this.can = el
+          this.cxt = el.getContext('2d')
+          this.draw(this.cxt)
+        },
+        draw(c) {
+          let { pic } = this
+
+          pic.onload = function () {
+            c.drawImage(pic,0,0,100,100);
+            let imgData = c.getImageData(0,0,100,100)
+            console.log(imgData);
+          }
+        }
+      }
+      liz.init(el,{})
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="s">
+      <input type="text" name="" value="" />
+    </div>
+    <script type="text/javascript">
+      var websocket = new WebSocket("ws://localhost:8007")
+      websocket.onopen = function (){
+        console.log('socket 链接已经打开');
+      }
+      websocket.onmessage = function (env){
+        console.log(env);
+      }
+      websocket.onclose = function (){
+        console.log('socket end');
+      }
+      websocket.onerror = function (){
+        console.log('wrong');
+      }
+      document.querySelector('.s input').oninput = function() {
+        let dom = this
+        websocket.send(dom.value)
+      }
+    </script>
+  </body>
+</html>
