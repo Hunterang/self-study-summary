@@ -19,6 +19,7 @@ function parseHeader(str) {
 var server = net.createServer(function(socket) {
   socket.once('data', buffer => {
     let str = buffer.toString()
+    console.log(str);
     let headers = parseHeader(str)
     // console.log(headers);
     if (headers['upgrade']!='websocket') {
@@ -37,8 +38,9 @@ var server = net.createServer(function(socket) {
       socket.write(`HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection:Upgrade\r\nSec-websocket-Accept:${resKey}\r\n\r\n`)
     }
   })
-  socket.on('data',(buffer) => {
 
+  socket.on('data',(buffer) => {
+    
   })
   socket.on('end', () => {
     console.log('disconnected');

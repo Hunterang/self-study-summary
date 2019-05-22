@@ -14,13 +14,14 @@
       class CreateCan {
         constructor (el,opt) {
           this.opt = opt
-          this.el = isNode(el) ? el : document.querySelector(el)
+          this.hover = false
+          this.el = this.isNode(el) ? el : document.querySelector(el)
 
-          if (isCanvas(this.el)) {
+          if (this.isCanvas(this.el)) {
             this.can = this.el
           }else {
             this.can = document.createElement('canvas')
-            this.el.appendChild(can)
+            this.el.appendChild(this.can)
           }
 
           this.cxt = this.can.getContext('2d')
@@ -29,6 +30,7 @@
         }
         init(opt) {
           this.drawCircle(opt)
+          this.canHover(this.can)
           return this
         }
         drawCircle (opt) {
@@ -37,24 +39,33 @@
             y: opt.series.y,
             r: opt.series.r,
           }
-          if (opt.hover) {
+          if (this.hover) {
             param.r = 1.5*param.r
           }
           this.can.width =  opt.width || 150
           this.can.length =  opt.height || 150
-          cxt.beginPath()
-          cxt.fillStyle = opt.series.color || '#fff'
-          cxt.arc( param.x,param.y,param.r,0,Math.PI*2 )
-
+          this.cxt.beginPath()
+          this.cxt.fillStyle = opt.series.color || '#023'
+          this.cxt.arc( param.x,param.y,param.r,0,Math.PI*2 )
+          this.cxt.fill()
         }
         canHover (can) {
-          let grow = this.big.bind(this)
+          let grow = () => {
+            this.toggle(true)
+          }
+          let small= () => {
+            this.toggle(false)
+          }
           can.addEventListener('mouseenter', grow)
+          can.addEventListener('mouseleave',small)
         }
-        big () {
+        toggle (statu) {
+          //需要根据鼠标所在的位置进行放大缩小，感觉略微有些耗时间，就先弄了
+          //方法缩小的可以根据帧动画来做，或者定时器，暂时没做
           let { can,cxt } = this
-          cxt.clearReact(0,0,can.width,can.height)
-          this.drawCircle
+          this.hover = statu
+          cxt.clearRect(0,0,can.width,can.height)
+          this.drawCircle(this.opt)
         }
 
         destroyed() {
@@ -68,6 +79,14 @@
           return node.nodeName.toLowerCase() === 'canvas';
         }
       }
+
+      var hovercan = new CreateCan(document.querySelector(".canvas"),{
+        series: {
+          x: 50,
+          y: 20,
+          r: 10
+        }
+      })
      </script>
   </body>
 </html>
