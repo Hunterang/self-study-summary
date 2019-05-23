@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+      <p></p>
+      <button type="button" name="button"></button>
+    </div>
+    <script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      let ws = io.connect("ws://localhost:3000/")
+      document.querySelector('button').onclick = function () {
+        ws.emit('data','hello,long pool')
+      }
+      ws.on('request', data => {
+        console.log(data);
+      })
+      ws.on('message',(data) => {
+        document.querySelector('p').innerText = data
+      })
+    </script>
+  </body>
+</html>
