@@ -3,7 +3,7 @@ const url = require('url')
 const querystring = require('querystring')
 const zlib = require('zlib')
 const fs = require('fs')
-const { Form } = require('multiparty')
+const mult = require('multiparty')
 const { HTTP_PORT,HTTP_ROOT,HTTP_UPLOAD } = require('../config')
 
 http.createServer((req,res) => {
@@ -22,8 +22,12 @@ if (req.method == 'POST') {
       handle()
     })
   }else {
-
+    //文件操作
+    let form = new Form({
+      uploadDir: HTTP_UPLOAD
+    })
   }
+  form.parse()//先暂时这样
 }else {
   handle(req.method,pathname,)
 }

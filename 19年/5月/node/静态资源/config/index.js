@@ -1,10 +1,10 @@
 const process = require('process')
 
 
-
+let mode =   'develop'
 module.exports = {
-  mode: 'develoup', //根据mode加载相应的配置
+  mode, //根据mode加载相应的配置
 
 
-  ...(mode == 'develoup' ? require('config.dev.js'): require('config.prod.js'))
+  ...(mode == 'develop' ? require('./config.dev.js'): require('./config.prod.js'))
 }

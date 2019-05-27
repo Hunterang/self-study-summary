@@ -14,6 +14,14 @@
 
       //根据多次测试得知'.'的优先级要比'='高，所以在运算过程中a.x会优先执行
       //得出的结果是 {'n':2}和{'n':1,x:{'n':2}}
+
+      let arr = Array(5).fill(2)
+      arr.forEach( (v,k )=> {
+        if (k ==1) {
+          return false
+        }
+        console.log(k);
+      })
     </script>
   </body>
 </html>

@@ -1,13 +1,13 @@
 const path = require('path')
 
 module.exports = {
-  DB_HOST: '192.168.1.93',
+  DB_HOST: '127.0.0.1',
   DB_PORT: '3306',
-  DB_USER: 'root',
-  DB_PASS: '111111',
+  DB_USER: '*****t',
+  DB_PASS: '*****',
   DB_NAME: 'speedmonitor',
 
-  HTTP_PORT: '8080',
+  HTTP_PORT: '8001',
   HTTP_ROOT: path.resolve(__dirname,'../static/'),
   HTTP_UPLOAD: path.resolve(__dirname,'../static/upload/')
 }
