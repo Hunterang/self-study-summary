@@ -4,6 +4,7 @@ let dvnamicElment = null
 let elementType = []
 let colorType = ['#123456','#654321']
 let techris = document.getElementById('terise')
+let next = document.querySelector('#next')
 
 
 
@@ -55,7 +56,7 @@ function randomGenerateElement() {
   let elementTypeNum =Math.floor(Math.random()*elementType.length)
   let statusNum = Math.floor(Math.random()*4)
   let colorTypeNum = Math.floor(Math.random()*colorType.length)
-  return new elementType[elementTypeNum](5,2,statusNum,colorType[colorTypeNum])
+  return new elementType[elementTypeNum](5,0,statusNum,colorType[colorTypeNum])
 }
 
 
@@ -68,9 +69,10 @@ function init() {
       let newList = []
       for (var i = 0; i < 4; i++) {
         let newElement = nextElement.squareList[i].cloneNode(true)
-        newElement.style.top = parseInt(newElement.style.top) - 30 +'px'
-        newElement.style.left = parseInt(newElement.style.top) - 120 +'px'
-        techris.appendChild(newElement)
+        newElement.style.top = 30*(nextElement.squareList[i].y+1) +'px'
+        newElement.style.left =  30*(nextElement.squareList[i].x-4)+'px'
+        console.log(newElement.y);
+        next.appendChild(newElement)
       }
 
     }

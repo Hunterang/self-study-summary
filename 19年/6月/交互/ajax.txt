@@ -1,0 +1,17 @@
+1.原生的ajax自带process方法
+    xhr.onload.process = function(evt) { let data = evt.loaded //每次上传的kb数量//有点类似于while一直到加载完成 }
+
+    xhr.send(formData)//不需要对数据进行处理当前请求头为 multipart/form-data请求头中自带boundry、
+
+2.fetch(),较为新的前后端交互方法，兼容性一般，操作便利，返回promise，所以支持async和awiat。
+  fetch(url).then(v => console.log(v))
+  fetch(url,
+    {
+    method: 'POST',
+    headers: 'Content-Type:xxxxx',
+    data: 'data'
+    }).then( v => {})
+
+
+window.createObjectURL(files[0]) === 生成路径实现上传前的预览效果
+fileReaders方法中也有相似的方法，地址格式会被转化

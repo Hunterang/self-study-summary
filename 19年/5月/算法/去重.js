@@ -7,3 +7,9 @@ let unique = (arr) => {
   }
   return neArr
 }
+
+
+
+let nuniq2 = (arr) => {
+    return  [...new Set(arr)]
+}
