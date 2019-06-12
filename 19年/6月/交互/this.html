@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // function New(name) {
+      //   let o = {}
+      //   this = o 这个写不对，this在此处指向的是window，只能是改变fn内的this
+      //   this.name = name
+      //   return this
+      // }
+      // let realExample = New('zff')
+      // console.log(realExample);
+      function New (fn) {
+        return function () {
+          let o = {'__proto__': fn.prototype }
+          fn.call(o, ...arguments)
+          return o
+        }
+      }
+      function F (name) {
+        this.name = name
+      }
+      let c = New(F)
+      console.log(c('zff'));
+
+
+      // function mergeSort(arr) {
+      //   let left,right,len = arr.length
+      //   if (len < 2) {
+      //     return arr
+      //   }
+      //   let middle = len>>1
+      //   left = arr.slice(0,middle)
+      //   right = arr.slice(middle)
+      //   let merLeft = mergeSort(left)
+      //   let merRight = mergeSort(right)
+      //   return  merge(merLeft,merRight)
+      // }
+      //
+      // function merge ( left, right ) {
+      //   let result = []
+      //   while (left.length  && right.length ) {
+      //     if (left[0] <= right[0]) {
+      //       result.push(left.unshift())
+      //     }else {
+      //       result.push(right.unshift())
+      //     }
+      //   }
+      //   while (left.length > 0) {
+      //     result.push(left.unshift())
+      //   }
+      //   while (right.length > 0) {
+      //     result.push(right.unshift)
+      //   }
+      //
+      //   return result
+      // }
+      function mergeSort(arr) {  // 采用自上而下的递归方法
+    var len = arr.length;
+    if(len < 2) {
+        return arr;
+    }
+    var middle = Math.floor(len / 2),
+        left = arr.slice(0, middle),
+        right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right)
+{
+    var result = [];
+
+    while (left.length && right.length) {
+        if (left[0] <= right[0]) {
+            result.push(left.shift());
+        } else {
+            result.push(right.shift());
+        }
+    }
+
+    while (left.length)
+        result.push(left.shift());
+
+    while (right.length)
+        result.push(right.shift());
+
+    return result;
+}
+
+      function randArr(n) {
+        let arr = []
+        for (var i = 0; i <n; i++) {
+          arr.push(Math.floor(Math.random()*100))
+        }
+        return arr
+      }
+      let randArrs = randArr(10)
+
+      console.log(randArrs);
+      let sortArr = mergeSort(randArrs)
+      console.log(sortArr);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+
+    </div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+      // console.log(React)
+      // console.log(ReactDOM)
+      // let { Component } = React
+    // class Component  {
+    //     constructor() {
+    //       this.render()
+    //     }
+    //     render() {
+    //       return (
+    //         <div>halo,is a world</div>
+    //       )
+    //     }
+    //   }
+    //根据测试react的执行顺序
+    //1.ReactDom.render首先执行，
+    //2检查'（'后面跟'，'前面的元素，如果属于真实的节点，则按照节点处理，转义为createElement(),如果不是那么查看是否首字母大写
+    //如果大写，最终转化为class new出来
+    //3.转化的结果就是生成的dom，将生成的dom最终挂到#app上
+
+    //根据理解。babel的过程就是将jsx字符串化，在经过RegExp将相应的节点取出，构建成新的js语言eval之后进行实现
+      let comp = null
+      ReactDOM.render(<div/>,document.querySelector('#app'))//这一句就是所有的起点。
+    </script>
+  </body>
+</html>

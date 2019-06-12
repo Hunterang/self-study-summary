@@ -31,6 +31,11 @@ class Event {
     })
   }
   once(type, handle) {
-
+    let vs = this
+    function moon() {
+      vs.off(type,moon)
+      hanle.call(vs,arguments)
+    }
+    this.on(type,moon)
   }
 }
