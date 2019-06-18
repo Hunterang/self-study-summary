@@ -11,7 +11,8 @@
     <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
     <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
     <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
-    <script type="text/babel">
+    <!-- <script type="text/babel">
+
       // console.log(React)
       // console.log(ReactDOM)
       // let { Component } = React
@@ -34,6 +35,31 @@
     //根据理解。babel的过程就是将jsx字符串化，在经过RegExp将相应的节点取出，构建成新的js语言eval之后进行实现
       let comp = null
       ReactDOM.render(<div/>,document.querySelector('#app'))//这一句就是所有的起点。
+    </script> -->
+    <script type="text/javascript">
+    var multiply = function(num1, num2) {
+      if(isNaN(num1) || isNaN(num2)) return '' //判断输入是不是数字
+      var len1 = num1.length,
+        len2 = num2.length
+      var ans = []
+      for (var i = len1 - 1; i >= 0; i--) {
+        for (var j = len2 - 1; j >= 0; j--) {
+          var index1 = i + j  //占的位置在哪里两数想乘的十位数
+          var index2 = i + j + 1 //两数相乘的个位位置
+          var mul = num1[i] * num2[j] + (ans[index2] || 0)  //首先相加
+          ans[index1] = Math.floor(mul / 10) + (ans[index1] || 0)//算出十位的数字||存在十位进一的问题
+          ans[index2] = mul % 10//个位取余数
+        }
+      }
+      var result = ans.join('')
+        //这里结果有可能会是多个零的情况，需要转成数字判断
+        //原来写的是return +result === 0 ? '0' : result，result字符串会出现有前置0的情况，感谢评论区小伙伴@nicknice的提醒让我找到了这个错误
+        return +result === 0 ? '0' : result.replace(/^0+/,'')
+
+    }
+    let res = multiply(999,99)
+
+    console.log(res);
     </script>
   </body>
 </html>

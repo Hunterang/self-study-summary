@@ -24,7 +24,7 @@ class Router {
   static install (_Vue) {
     Vu = _Vue
 
-    
+
     Vu.mixin({
       beforeCreate() {
         if (this.options.router) {//vue实例创建之时，调用router的init方法
@@ -32,12 +32,12 @@ class Router {
         }
       }
     })
-    Vu.component('RouterLink' {
+    Vu.component('RouterLink', {
       render: h => {
 
       }
     })
-    Vu.component('RouterView' {
+    Vu.component('RouterView', {
       render: h => {
 
       }

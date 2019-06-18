@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+
+      <input type="text" name="" value="" />
+      <div class="container">
+
+      </div>
+    </div>
+    <script type="text/javascript">
+    let btn = document.querySelector('input')
+    let contain = document.querySelector('.container')
+
+    btn.addEventListener('keyup',function(e) {
+      console.log(e.target);
+    })
+
+
+
+
+
+
+      var ws = new WebSocket('ws://localhost:8000')
+      ws.onopen = function () {
+        console.log('connection');
+        ws.send('hello server')
+      }
+      ws.onmessage = function (env) {
+
+      }
+      ws.onclose = function () {
+        console.log('disconnected');
+      }
+      ws.error = function () {
+        console.log('error');
+      }
+
+      ws.on
+    </script>
+  </body>
+</html>

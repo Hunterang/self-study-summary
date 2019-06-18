@@ -14,7 +14,7 @@
         console.log('socket 链接已经打开');
       }
       websocket.onmessage = function (env){
-        console.log(env);
+        console.log(env.data);
       }
       websocket.onclose = function (){
         console.log('socket end');
