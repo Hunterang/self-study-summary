@@ -1,6 +1,6 @@
 //找出最长不重复的字符串
 let uniqstr = (str) => {
-  let maxStr = ''
+  'let maxStr = ''
   let start = 0
   let len = 1
   for (var i = 1; i < str.length; i++) {
@@ -14,7 +14,7 @@ let uniqstr = (str) => {
     }
   }
   start=== 0 ? maxStr = str : ''
-  return maxStr
+  return maxStr'
 }
 //最长不重复的个数正确，但是存在相同个数的，所以输出第一个最长不重复字符串
 

@@ -1,5 +1,5 @@
 
-//js解决大数据计算的问题
+//js解决大数据计算的问题 ps:结果是错的的，天
 
 
 var multiply = function(num1, num2) {

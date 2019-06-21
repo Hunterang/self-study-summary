@@ -12,7 +12,7 @@ var singleNumber = function(nums) {
 //查找众数
 
 let findNuber = function (nums) {
-  let newNums = []
+  let newNums = [],result = null
   for (var i = 0; i < num.length; i++) {
     if (!newNums[num[i]]) {
       newNums[num[i]] = 1
@@ -20,10 +20,11 @@ let findNuber = function (nums) {
       newNums[num[i]]++
     }
     if (newNums[num[i]] > num.length/2) {
-      return num[i]
+      result =  num[i]
       break
     }
   }
+  return result
 }
 
 let matrix = [
