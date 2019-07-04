@@ -19,7 +19,7 @@ let server = http.createServer((req,res) => {
         let post = querystring.parse(Buffer.concat(arr).toString())
           fn(req.method,pathname,{},post,{})
       })
-    }else {
+    }else {''
       //文件post
       let form = new mult.Form({
         uploadDir:HTTP_UPLOAD
