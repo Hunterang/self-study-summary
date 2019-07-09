@@ -50,9 +50,9 @@
           render() {
             return (
               <div className='div_row'>
-              {this.renderSquare(0)}
-              {this.renderSquare(1)}
-              {this.renderSquare(2)}
+              for (var i = 0; i < 3; i++) {
+                this.renderSquare(i)
+              }
               </div>
             )
           }
