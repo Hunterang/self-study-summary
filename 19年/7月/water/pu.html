@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let arr = []
+      for (var i = 0; i < 40; i++) {
+        arr[i] = Math.random()*100+10
+      }
+      let generatorColor = function () {
+        return `rgb(${Math.random()*256}, ${Math.random()*256}, ${Math.random()*256})`
+      }
+
+      let options = {
+        width: null,
+        itemWidth: 200,
+        heightArr: [],
+        children: null
+      }
+
+
+      let frag = document.createDocumentFragment()
+      arr.forEach((val) => {
+        let div = document.createElement('div')
+        div.style.width = 200+'px'
+        div.style.height = `${val}px`
+        div.style.background = generatorColor()
+        div.style.float = 'left'
+
+        frag.appendChild(div)
+      })
+
+      let initF = function() {
+        let { width,children } = options
+        width = document.documentElement.clientWidth
+        let length = Math.floor(width/200)
+        heightArr = Array(length)
+      }
+      //这里进行排列好吧
+      // document.body.appendChild(frag)
+    </script>
+  </body>
+</html>

@@ -18,9 +18,23 @@ let flat2 = (arr) => {
   },[])
 }
 
-var arrs = [[123,[1,2,3],[124,7,8]],1,[22,44]]
+var arrs = [[123,[1,[2,3]],[124,7,8]],1,[22,44]]
 
 flat2(arrs)
+
+
+//看看隐式类型转换转换的厉害之处
+//(arr+'').split(',')这一句就够了
+let flat3 = (arr) => {
+  let arr1 = [...new Set((arr+'').split(','))]
+  return arr1.sort((a,b) => a-b)
+}
+
+
+let flat = (arr) => {
+  return [].concat(...arr.map(item => Array.isArray(item)? flat(item): item))
+}
+
 
 
 
