@@ -1,52 +1,7 @@
-function newFn(Fn) {
-  let o = {
-    "__proto__": Fn.prototype
-  }
-    function nFn(...args) {
-     Fn.apply(o,args)
-     return o
-   }
-   return nFn
-}
-let list = []
-function findValue(str,result = [],list = list) {
-  // list.forEach( v =>  {
-  //   if (v.id === str) {
-  //     return result.concat(v.id)
-  //   }else {
-  //     result.concat(v.id)
-  //   }
-  // })
-  for (var i = 0; i < list.length; i++) {
-      if (v.id === str) {
-        return result.concat(v.id)
-      }else {
-        result.concat(v.id)
-      }
-  }
-}
-
-function tes() {
-  for (var i = 0; i < 10; i++) {
-    console.log(i);
-    if( i == 2) return
-  }
-}
+## 下面的方法可以让nodejs在cmd下输入不同颜色
 
 
-//这个是一道面试题，要求对数字进行递归翻转，自己做的，赞
-function rotate(nums) {
-  let str = ''
-  let current = nums%10
-  str = str+current
-  if (Math.floor(nums/10) > 0 ) {
-    return str+ rotate(Math.floor(nums/10))
-  } else {
-    return str
-  }
-}
-//下面是node cmd输出文字颜色设置
-/*
+
 console.log('\x1B[36m%s\x1B[0m', info);  //cyan
 
 console.log('\x1B[33m%s\x1b[0m:', path);  //yellow
@@ -99,4 +54,4 @@ var styles = {
 
     'yellowBG'      : ['\x1B[43m', '\x1B[49m']
 
-};*/
+};
