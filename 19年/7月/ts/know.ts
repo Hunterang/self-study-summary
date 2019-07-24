@@ -201,3 +201,23 @@ declare class Animal {
   constructor(name: string);
   sayHi(): string;
 }
+
+//直接通过type 关键字定义类型
+
+type A = {
+  b: number,
+  c: string
+}
+
+type Func = () => number
+type Key = number | string //多个类型
+
+//泛类型
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; }
