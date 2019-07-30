@@ -1,3 +1,4 @@
+//包含的总数s中包含j的总数
 var numJewelsInStones = function(J, S) {
     let n = 0
     while(J.length) {
@@ -18,6 +19,7 @@ while( 1> 0) {
     break
   }
 }
+//最长不重复的字符串，尼玛最后拿10万考验我
 var lengthOfLongestSubstring = function(s) {
   let i = 0, len = s.length, result= 0, str= ''
   while (i < len) {
@@ -33,7 +35,7 @@ var lengthOfLongestSubstring = function(s) {
   }
   return result
 }
-
+//.两数之和暴力破解
 var twoSum = function(nums, target) {
     let arr = []
     for (var i = 0; i < nums.length-1; i++) {

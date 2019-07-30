@@ -1,0 +1,43 @@
+
+/*
+css实现顶部滚动条，
+原理是线性背景色 + 选择器
+*/
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-image: linear-gradient(to right top, #ff7700 50%, #eee 50%);
+        background-size: 105% calc(100% - 100vh + 5px);
+        margin-left: -5px;
+        background-repeat: no-repeat;
+      }
+      body::after {
+        content: '';
+        position: fixed;
+        top: 5px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        z-index: -1;
+      }
+      .test {
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test">
+hhhhhhhhhhhhhhhhhhhhhhhh
+    </div>
+  </body>
+</html>
