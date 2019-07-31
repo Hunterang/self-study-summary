@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .a {
+        width: 100px;
+        height: 100px;
+        background: #226633;
+        shape-outside: circle();
+        /*实际是以圆型对外部进行影响*/
+      }
+      .outer {
+        background: #123456;
+        overflow: hidden;
+        /*以上的方法可以阻止外边距合并*/
+      }
+      .inner {
+        background: #654321;
+        margin-top: 30px;
+        height: 200px;
+        width: 200px;
+      }
+      .container {
+        border: 1px solid #885577;
+        width: 600px;
+        display: flow-root;
+      }
+      .image {
+        background: #775845;
+        height: 100px;
+        width: 500px;
+        float: left;
+      }
+      .bodys {
+          display: flow-root;
+        /*解决浮动元素溢出的问题*/
+      }
+      .input {
+        width: 100%;
+        /*width和size决定input的宽度，displayblock不能影响*/
+      }
+      .absolute {
+        position: absolute;/*或者fixed*/
+        left: 30px;
+        right: 30px;
+        /*同时设置左右的距离相当于设置默认的宽度，高度也是一样的*/
+      }
+      /*
+      如果父级添加了z-index 那么子级再添加层级也不会高于比父级高的层级
+      */
+      .state {
+        height: 1400px;
+        background: #065577;
+      }
+      .static {
+        top: 30vh;
+        height: 60px;
+        background: #45aa99;
+        position: sticky;
+        /*
+        sticky作为黏沾属性非常不错，设置距离上部和下部的高度，可以进行位置固定
+        */
+      }
+      .ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border: 1px solid #220022;
+        width: 350px;
+      }
+      .ul>li {
+        text-align: center;
+      }
+      .ul>li+li {
+        border-top: 1px solid #753951;
+      }
+      .padding {
+        width: 100px;
+        height: 100px;
+        background: #654321;
+      }
+      .c-padding {
+        height: 10px;
+        padding: 20%;
+        background: #fff;
+        /*padding的百分比是依照父级决定的*/
+      }
+      .rain-bow {
+        height: 30px;
+        background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet 60%);
+      }
+      .border {
+        width: 200px;
+        height: 200px;
+        margin: 20px auto;
+        background: #444588;
+        border: 10px dashed #772596;
+        outline: 10px dashed #257796;
+        outline-offset: -40px;
+      }
+      .rotate {
+        height: 100px;
+        width: 100px;
+        background: conic-gradient(red,orange,blue);
+        animation: rota 1s linear infinite;
+      }
+      @keyframes rota {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .rotate:hover {
+        animation-play-state: paused;
+      }
+      button:disabled {
+        cursor: not-allowed;
+        background: #123456;
+      }
+      .self {
+        --percent: 50%;
+        height: 10px;
+        margin: 10px;
+        background: linear-gradient(to right, #592, #962);
+        background-repeat: no-repeat;
+        background-size: var(--percent);
+      }
+      .run {
+        height: 60px;
+        width: 48px;
+        background: url("./run.png") no-repeat;
+        animation: run 2s steps(10) infinite;
+      }
+      @keyframes run {
+        100% {
+          background-position: -480px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rain-bow">
+
+    </div>
+    <div class="a">
+
+    </div>
+    <div class="outer">
+      <div class="inner">
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="image">
+
+      </div>
+      <div class="bodys">
+        鉴于时不时有童鞋翻我以前
+
+      </div>
+    </div>
+    <input type="text" calss='input' value="" size='30'>
+    <div class="absolute">
+      123
+    </div>
+    <div class="state">
+      <div class="static">
+
+      </div>
+    </div>
+    <ul class="ul">
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+      <li>1</li>
+    </ul>
+
+    <div class="padding">
+      <div class="c-padding">
+
+      </div>
+    </div>
+    <div class="border">
+
+    </div>
+    <div class="rotate">
+
+    </div>
+    <button disabled>disabled</button>
+    <div class="self">
+
+    </div>
+    <div class="run">
+
+    </div>
+  </body>
+</html>
