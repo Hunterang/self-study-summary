@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<!--这是一个日期插件的雏形，知道自己可以完成就可以了，还想了一种简单的方法，就是让数据方格每隔7个换行即可；本方法处理为2维数组for循环生成位置为绝对定位，外部为相对定位-->
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="clindar">
+      点我查看console.log
+    </div>
+    <script type="text/javascript">
+    let time = new Date()
+    let borderLength = 40
+    let mouth = [31,28,31,30,31,30,31,31,30,31,30,31]
+    let date = {
+      y: time.getFullYear(),
+      m: time.getMonth(),
+      d: time.getDay(),
+    }
+    let clindar = document.getElementById('clindar')
+    let status = false
+    let mouthFirst = function (y,m,d=1) {
+      y = ''+y
+      m = ''+m
+      d = ''+d
+      return new Date(y,m,d).getDay()
+    }
+    let genratBox = function(x, value) {
+      let box =document.createDocumentFragment()
+      for (var i = 0; i < x.length; i++) {
+        for (var j = 0; j < 7; j++) {
+          let div = document.createElement('div')
+          div.style.position = 'absolute'
+          div.style.left = i*borderLength+ 'px'
+          div.style.top = j*borderLength+ 'px'
+          div.innerHTML = value[i][j] || ''
+          //添加观察者，当数据改变的时候直接触发更新，
+          //不太好的是，row并不确定，所以有待考究
+          // new Watcher((v) => {
+          //   div.innerHTML = v
+          // })
+          box.appendChild(div)
+        }
+      }
+      return box
+    }
+    mouth[1] = date.y%4 === 0 && (date.y%100 !== 0 || date.y%400 === 0) ?29 : 28
+
+    clindar.addEventListener('click',() => {
+      status = !status
+      let { y, m, d } = date
+      let janerayWeek = mouthFirst(y, m)
+      let nums = Object.keys(Array(mouth[m]).fill())
+      let pre = m == 0
+          ? Object.keys(Array(mouth[11]).fill())
+          : Object.keys(Array(mouth[m-1]).fill())
+      nums = nums.map(v => Number(v)+1)
+      pre = pre.map(v => Number(v)+1)
+      let combine = [...pre.slice(-janerayWeek),...nums]
+      let result = []
+      let row = Math.ceil((janerayWeek + mouth[m])/7)
+
+      combine.length = row*7
+      while (combine.length) {
+        result.push(combine.splice(0,7))
+      }
+      console.log(result);
+    })
+
+
+    </script>
+  </body>
+</html>

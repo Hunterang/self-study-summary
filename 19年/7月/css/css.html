@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
       .a {
         width: 100px;
         height: 100px;
@@ -140,9 +144,50 @@
           background-position: -480px 0;
         }
       }
+      .stick {
+        height: 200px;
+        background: #aaff99;
+        position: sticky;
+        bottom: 0;
+        top: calc(100vh - 200px);
+      }
+      .special::before {
+        content: '\27a5';
+        color: #990099;
+      }
+      .rot {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        background: conic-gradient(red,blue,yellow,pink);
+      }
+      .rot:hover {
+        transform: rotate(30turn);
+        transition: all 10s;
+      }
+      .ot-ul {
+        list-style: none;
+        overflow: hidden;
+      }
+      .ot-ul li {
+        border: 10px solid pink;
+        height: 30px;
+      }
+      .ot-ul li:hover {
+        outline: 10000px solid #00000099;
+      }
     </style>
   </head>
   <body>
+    <ul class="ot-ul">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <div class="rot">
+
+    </div>
     <div class="rain-bow">
 
     </div>
@@ -198,6 +243,16 @@
     </div>
     <div class="run">
 
+    </div>
+    <!-- <div class="stick">
+
+    </div> -->
+    <div class="" style="background:#123456;height:100px;">
+
+    </div>
+    <div class="special">
+      &#10084;
+      <p style="text-align:center">&rArr;</p>
     </div>
   </body>
 </html>
