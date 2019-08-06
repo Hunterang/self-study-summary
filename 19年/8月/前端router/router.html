@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="head">
+      <a href="#/home">home</a>
+      <a href="#/body">body</a>
+      <a href="#/about">about</a>
+    </div>
+    <script type="text/javascript">
+      class Router {
+        constructor() {
+          this.routers = {}
+          this.init()
+        }
+        router(hash,fn) {
+          this.routers[hash] = fn
+        }
+        refresh() {
+          console.log(1);
+          if (location.hash.length > 0) {
+            let curentUrl = location.hash.slice(1) || '/'
+            console.log(curentUrl);
+            // this.routers[curentUrl]()
+          }
+        }
+        init() {
+          window.addEventListener('load',() => {
+            this.refresh()
+          },false)
+          window.addEventListener('hashchange',() => {
+            console.log(123);
+            this.refresh()
+          },false)
+        }
+      }
+    </script>
+  </body>
+</html>

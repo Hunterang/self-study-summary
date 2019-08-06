@@ -5,11 +5,19 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+      #head,#mouth {
+        height: 30px;
+        border: 1px solid #456789;
+      }
+    </style>
   </head>
   <body>
     <div id="clindar">
+      <div id="head"></div>
       点我查看console.log
     </div>
+    <div id="mouth"> </div>
     <script type="text/javascript">
     let time = new Date()
     let borderLength = 40
@@ -20,6 +28,7 @@
       d: time.getDay(),
     }
     let clindar = document.getElementById('clindar')
+    let dmouth = document.getElementById('mouth')
     let status = false
     let mouthFirst = function (y,m,d=1) {
       y = ''+y
@@ -47,28 +56,37 @@
       return box
     }
     mouth[1] = date.y%4 === 0 && (date.y%100 !== 0 || date.y%400 === 0) ?29 : 28
-
-    clindar.addEventListener('click',() => {
-      status = !status
-      let { y, m, d } = date
-      let janerayWeek = mouthFirst(y, m)
-      let nums = Object.keys(Array(mouth[m]).fill())
-      let pre = m == 0
-          ? Object.keys(Array(mouth[11]).fill())
-          : Object.keys(Array(mouth[m-1]).fill())
-      nums = nums.map(v => Number(v)+1)
-      pre = pre.map(v => Number(v)+1)
-      let combine = [...pre.slice(-janerayWeek),...nums]
+    let getMouthaArr = function(m) {
+       let arr = m < -1
+        ? Object.keys(Array(mouth[11]).fill())
+        : Object.keys(Array(mouth[m]).fill())
+        return arr.map(v => Number(v)+1)
+    }
+    let generatorArr = function(m, days, arr1, arr2) {
+      let combine = [...arr2.slice(-days),...arr1]
       let result = []
-      let row = Math.ceil((janerayWeek + mouth[m])/7)
-
+      let row = Math.ceil((days + mouth[m])/7)
       combine.length = row*7
       while (combine.length) {
         result.push(combine.splice(0,7))
       }
+      return result
+    }
+    clindar.addEventListener('click',() => {
+      status = !status
+      let { y, m, d } = date
+      let result = generatorArr(m,
+            mouthFirst(y, m), getMouthaArr(m), getMouthaArr(m-1))
       console.log(result);
-    })
-
+    }, false)
+    dmouth.addEventListener('click',() => {
+      let { y, m, d } = date
+      m = m -1 > 0? m-1: 11
+      date.m = m
+      let result = generatorArr(m,
+            mouthFirst(y, m), getMouthaArr(m), getMouthaArr(m-1))
+            console.log(result);
+    },false)
 
     </script>
   </body>

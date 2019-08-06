@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="view">
+
+    </div>
+
+    <script src="./observe.js" charset="utf-8"></script>
+    <script src="./watcher.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    // class  Observe {
+    //   constructor(opt) {
+    //     this.opt = opt
+    //     this.definepropty(this.opt)
+    //
+    //   }
+    //   definepropty(obj) {
+    //       let dep = new Dep()
+    //       let proxy = new Proxy(obj, {
+    //         get(obj,v) {
+    //           if (dep.target) {
+    //             dep.add(dep.target)
+    //           }
+    //           Reflect.get(obj,v)
+    //         },
+    //         set(obj, v, value) {
+    //           dep.notify()
+    //           Reflect.set(obj, v, value)
+    //         }
+    //       })
+    //   }
+    // }
+      class Dep {
+        constructor() {
+          this.depandents = []
+        }
+        add(target) {
+          this.depandents.push(target)
+        }
+        notify(){
+          this.depandents.forEach( target => target.update())
+        }
+      }
+      let routerMap = [{
+        path: '/index',
+        component: '<div>hello index</div>'
+      },{
+        path: '/main',
+        component: '<div>hello main</div>'
+      },{
+        path: '*',
+        component: '404'
+      }]
+
+      let current = {
+        route: {
+          path: '/',
+          component: '<div>this is root<div>'
+        }
+      }
+      let dep = new Dep()
+      let proxy = new Proxy(current,{
+        get(current,prop) {
+          if (Dep.target) {
+            dep.add(Dep.target)
+          }
+          Reflect.get(current,props)
+        },
+        set(current, prop, value){
+          dep.notify()
+            Reflect.set(current, props, value)
+        }
+      })
+      let render = function() {
+        let i
+        if (i=current.route && i = i.component) {
+          document.getElementById('view').innerHTML = i
+        }
+      }
+      new Watcher(this.proxy, 'route', render)
+      //可以只是改变hash就可以了(将页面跟路由绑定到一起,需要一个routerMap跟hash进行比对) h5的话是pushstate方法
+      //hashchange的时候改变的是proxy，js操作也是修改hashchange
+      ///a链接跟js中router.push()都是为了改变hash,当hash改变之后进行判断
+      //routerMap中存在该path则修改current 如果不存在,默认给*显示404页面
+    </script>
+    <!-- <script type="text/javascript">
+      class Router {
+        constructor(opt) {
+          this.$opt = opt
+          this.routes = opt.routers
+          this.mode = opt.mode || 'hash'
+          this.init()
+        }
+        render() {
+
+        }
+        push(laotion) {
+
+        }
+        init() {
+          new Observe(this.current)
+          new Watcher(this.current, 'route', this.render.bind(this))
+        }
+      }
+    </script> -->
+  </body>
+</html>

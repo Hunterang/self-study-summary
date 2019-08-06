@@ -54,10 +54,12 @@ let targe = {name: 'zzz'}
 let proxy = new Proxy(targe,{
   get(target, prop, receiver){
     //对prop进行校验
+    console.log('get');
     Reflect.get(target, prop)
   },
   set(target, prop, value) {
     //对props进行校验
+    console.log('set');
     Reflect.set(target, prop, value)
   }
 })
