@@ -8,8 +8,11 @@
     <div id="view">
 
     </div>
+    <a href="#/index">index</a>
+    <a href="#/home">home</a>
+    <a href="#/about">about</a>
 
-    <script src="./observe.js" charset="utf-8"></script>
+    <!-- <script src="./observe.js" charset="utf-8"></script> -->
     <script src="./watcher.js" charset="utf-8"></script>
     <script type="text/javascript">
     // class  Observe {
@@ -34,6 +37,11 @@
     //       })
     //   }
     // }
+    /*
+    声明式函数写法 || 作用就是将将要执行的任务功能模块化
+    const makePerson => (person) => person.name+'is'+person.age
+    const personArr =(person) => person.map(makePerson)
+    */
       class Dep {
         constructor() {
           this.depandents = []
@@ -49,7 +57,7 @@
         path: '/index',
         component: '<div>hello index</div>'
       },{
-        path: '/main',
+        path: '/home',
         component: '<div>hello main</div>'
       },{
         path: '*',
@@ -68,20 +76,30 @@
           if (Dep.target) {
             dep.add(Dep.target)
           }
-          Reflect.get(current,props)
+          Reflect.get(current,prop)
         },
         set(current, prop, value){
-          dep.notify()
-            Reflect.set(current, props, value)
+
+            Reflect.set(current, prop, value)
+            dep.notify()
         }
       })
       let render = function() {
         let i
-        if (i=current.route && i = i.component) {
+        if ((i=current.route) && (i = i.component)) {
           document.getElementById('view').innerHTML = i
         }
       }
-      new Watcher(this.proxy, 'route', render)
+      new Watcher(proxy, 'route', render)
+      window.addEventListener('load',() => {
+        location.hash = location.hash? location.hash: '#/'
+      })
+      window.addEventListener('hashchange',() => {
+        let result = routerMap.filter(v => location.hash.includes(v.path))
+        result = result.length? result[0]: routerMap[routerMap.length-1]
+        console.log(result);
+        proxy.route = result
+      })
       //可以只是改变hash就可以了(将页面跟路由绑定到一起,需要一个routerMap跟hash进行比对) h5的话是pushstate方法
       //hashchange的时候改变的是proxy，js操作也是修改hashchange
       ///a链接跟js中router.push()都是为了改变hash,当hash改变之后进行判断

@@ -5,7 +5,7 @@ class Watcher {
     this.vm[express]
     Dep.target = null
     this.cb = cb
-  },
+  }
   update() {
     this.cb()
   }
