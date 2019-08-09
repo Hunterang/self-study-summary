@@ -39,7 +39,7 @@
     },
     provide() {
       return {
-        elContainer: this
+        elContainer: this//将个人传递给后代
       }
     },
     mounted() {
