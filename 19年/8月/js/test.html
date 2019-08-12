@@ -6,26 +6,48 @@
   </head>
   <body>
     <script type="text/javascript">
+    //字母排序数字不排序
       let sortArr = (str) => {
         let temp = null
         let arr = str.split('')
+
         for (var i = 0; i < arr.length; i++) {
           if(!/[a-zA-Z]/.test(arr[i])) {
             console.log(arr[i]);
             continue
           }
           for (var j = i+1; j<arr.length; j++) {
-            if (!/[a-zA-Z]/.test(arr[i])) { continue }
-            if ( arr[i] > arr[j]) {
-              temp = arr[i]
+            if (!/[a-zA-Z]/.test(arr[j])) { continue }
+              if (arr[i] > arr[j]) {
+                temp = arr[i]
               arr[i] = arr[j]
               arr[j] = temp
+              }
             }
           }
+          return arr.join('')
         }
-        return arr.join('')
-      }
+
       sortArr('asdas2e4regt645hd223432')
+      console.log(sortArr('asdas2e4regt645hd223432'));
+
+
+
+      const farawayLoginAPI = {
+        url: 'http://-ip-/#/main',
+        method: 'post',
+        user: {
+          param: 'name',
+          value: 'ADMIN'
+        },
+        password: {
+          param: 'psw',
+          value: '123456'
+        }
+      }
+
+
+
     </script>
   </body>
 </html>
