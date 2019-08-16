@@ -10,3 +10,8 @@ class Watcher {
     this.cb()
   }
 }
+let object = {
+  name: 'React',
+  methods: ['Component','createElement']
+}
+console.log('name' in object);

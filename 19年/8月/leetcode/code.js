@@ -3,7 +3,7 @@ function sortarr(arr) {
     for (var i = 0; i < arr.length; i++) {
       min = arr[i]>= min? min: arr[i]
       max = arr[i]>= max? arr[i]: max
-      a1[arr[i]] =  a1[arr[i]]? ():  1
+      a1[arr[i]] =  a1[arr[i]]? (a1[arr[i]]++):  1
     }
     for (var j = min; j <= max; j++) {
       if (a1[j]>0) {
