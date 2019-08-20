@@ -19,7 +19,8 @@ console.log(`字符最多的是${char}，出现了${num}次`);
 
 //$0表示匹配到的具体东西，$1到$9表示第几个括号内的元素
 
-
+let res = /a(?=([^a]*)$)/
+'123sdffraadsfaas'.replace(res, '\u2605')
 
 //首字母大写,驼峰转换
 let tof = 'get-elment-by-id'

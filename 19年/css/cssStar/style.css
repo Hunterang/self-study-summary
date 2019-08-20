@@ -1,0 +1,26 @@
+input {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.mytest {
+  padding: 20px;
+  display: flex;
+  flex-flow: row-reverse; }
+  .mytest input[name='rate'] {
+    font-family: 'iconfont';
+    font-size: 25px;
+    padding-right: 10px; }
+    .mytest input[name='rate']::after {
+      content: '\2605';
+      color: #999;
+      transition: color .4; }
+    .mytest input[name='rate']:hover {
+      transform: scale(1.1); }
+    .mytest input[name='rate']:checked::after,
+    .mytest input[name='rate']:hover::after {
+      color: #ffa822; }
+    .mytest input[name='rate']:checked ~ input[name='rate']::after,
+    .mytest input[name='rate']:hover ~ input[name='rate']::after {
+      color: #ffa822; }

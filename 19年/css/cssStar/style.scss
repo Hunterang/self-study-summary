@@ -1,0 +1,39 @@
+input {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.mytest {
+  padding: 20px;
+  display: flex;
+  flex-flow: row-reverse;
+  $main: #ffa822;
+  $basic: #999;
+
+  input[name='rate'] {
+    font-family: 'iconfont';
+    font-size: 25px;
+    padding-right: 10px;
+
+    &::after {
+      content: '\2605';
+      color: $basic;
+      transition: color .4;
+    }
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:checked,
+    &:hover {
+      &::after {
+        color: $main;
+      }
+      & ~ input[name='rate'] {
+        &::after {
+          color: $main;
+        }
+      }
+    }
+  }
+}

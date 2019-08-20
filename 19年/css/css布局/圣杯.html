@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+	<style>
+	.main{
+		padding: 0 200px 0 200px;
+    overflow: hidden;
+		/* height: 300px; */
+	}
+		.middle {
+			float:left;
+			width:100%;
+			height:100px;
+			background:blue;
+		}
+		.left {
+			position: relative;
+			right: 200px;
+			float:left;
+			width:200px;
+			height:100px;
+			background:red;
+			margin-left: -100%;
+		}
+		.right {
+			float:left;
+			width:200px;
+			height:100px;
+			background:yellow;
+			margin-right: -200px;
+		}
+	</style>
+</head>
+<!--分析得知，middle 100%，父级元素要给padding 负margin 已经left 相对定位搞定-->
+<body>
+<div class="main">
+	<div class="middle"></div>
+	<div class="left"></div>
+	<div class="right"></div>
+	</div>
+</body>
+
+</html>
