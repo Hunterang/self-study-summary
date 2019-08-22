@@ -31,6 +31,7 @@ class CreateLink {
     if (this.length === 0) {
       this.head = node
       this.tail = node
+      return
     }
     this.tail.next = node
     this.tail = node

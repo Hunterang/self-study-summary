@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+        /*背景渐变*/
+        .bg {
+          background: linear-gradient();
+          background: conic-gradient();
+          background: radial-gradient();
+        }
+        /*文本换行*/
+        pre {
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+        .blurry-text {
+         color: transparent;
+         text-shadow: 0 0 5px rgba(0,0,0,0.5);
+      }
+      .f {
+        overflow: hidden;
+      }
+      .c {
+        background: radial-gradient(ellipse farthest-corner at 45px 45px , #00FFFF 0%, rgba(0, 0, 255, 0) 50%, #0000FF 95%);;
+        float: left;
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        margin-left: 5px;
+        animation: big 1s infinite
+      }
+      .c:nth-of-type(2) {
+        animation-delay: .25s
+      }
+      .c:nth-of-type(3) {
+        animation-delay: .5s
+      }
+      .c:nth-of-type(4) {
+        animation-delay: .75s
+      }
+      @keyframes big {
+        12.5% {
+          transform: scale(1.1);
+        }
+        25% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blurry-text">
+      nihao
+    </div>
+    <div class="f">
+      <div class="c"></div>
+      <div class="c"></div>
+      <div class="c"></div>
+      <div class="c"></div>
+    </div>
+    <script type="text/javascript">
+      /*
+
+      css3中的伪类;选择器
+      :root
+      :first-of-type :last-of-type :only-of-type
+      :nth-child(n)
+      :nth-of-type(n)
+      :checked :disabled :not(p) :empty
+      ~ 兄弟元素
+      li+li 紧随其后的元素
+      :[attr^=xxx]
+      :[attr$=xxx]
+      :[attr*=xxx]
+
+
+
+
+
+
+
+
+
+      */
+    </script>
+  </body>
+</html>

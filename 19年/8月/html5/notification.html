@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    Notification.requestPermission().then(function(permission) {
+    if(permission === 'granted'){
+        console.log('用户允许通知');
+    }else if(permission === 'denied'){
+        console.log('用户拒绝通知');
+    }
+});
+
+      var n = new Notification('状态更新提醒',{
+        body: '你的朋友圈有3条新状态，快去查看吧',
+        tag: 'linxin',
+        icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+        requireInteraction: true
+    })
+//pc端也可以显示，但是似乎只是显示了一两下，就gg了
+
+    </script>
+  </body>
+</html>

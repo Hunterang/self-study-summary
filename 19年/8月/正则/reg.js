@@ -24,4 +24,7 @@ let res = /a(?=([^a]*)$)/
 
 //首字母大写,驼峰转换
 let tof = 'get-elment-by-id'
-tof.replace(/-w/, _ => _[1].toUpperCase())
+tof.replace(/-\w/, _ => _[1].toUpperCase())
+
+//大小写qiehuan
+str.replace(/\w/g, a=> /[a-z]/.test(a)? a.toUpperCase(): a.toLowerCase())
