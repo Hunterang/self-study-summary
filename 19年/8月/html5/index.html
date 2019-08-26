@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <p>click</p>
+  <body>
+    <script type="text/javascript">
+      let p = document.querySelector('p')
+      p.onclick = post
+      function post() {
+        woker.postMessage({'cmd': 'average', data: [11]})
+      }
+      let woker = new Worker('worker.js')
+      woker.addEventListener('message', e => {
+        console.log(e.data);
+      })
+      let a = 1
+      let b ={
+        toString() {
+          return a++
+        }
+      }
+      if (b==1 && b==2) {
+        console.log('true');
+      }
+    </script>
+  </body>
+</html>

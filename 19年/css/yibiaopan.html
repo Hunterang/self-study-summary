@@ -3,8 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+      .o {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        animation: routate 1s 1;
+        animation-fill-mode: forwards;
+      }
+      .i {
+        height: 100px;
+        width: 100px;
+        border-radius: 50px;
+      }
+      @keyframes routate {
+        0% {
+          background: conic-gradient(#456789 0, #456789 30%, #eee 30%, #eee 100% );
+        }
+        45% {
+            background: conic-gradient(#456789 0, #456789 45%, #eee 45%, #eee 100% );
+        }
+        100% {
+          background: conic-gradient(#456789 0, #456789 60%, #eee 60%, #eee 100% );
+        }
+      }
+    </style>
   </head>
   <body>
-
+    <div class="o">
+      <div class="i">
+        <script type="text/javascript">
+          let canvas = document.createElement('canvas')
+          let cxt = canvas.getContext('2d')
+          console.log(cxt);
+        </script>
+      </div>
+    </div>
   </body>
 </html>

@@ -45,6 +45,38 @@
           value: '123456'
         }
       }
+    //  console.log(Human);//不提升变量报错
+      class Human {
+        constructor() {
+
+        }
+      }
+
+
+      function deep (node) {
+        let nodes = []
+        let a = function (node) {
+          nodes.push(node)
+          let children = node.children
+          if (children.length) {
+            for (var i = 0; i < children.length; i++) {
+              a(children.length)
+            }
+          }
+        }
+        a(node)
+        return nodes
+      }
+
+
+navigator.geolocation.getCurrentPosition(data => console.log(data), err => alter(err))
+
+
+
+
+
+
+
 
 
 
