@@ -1,6 +1,33 @@
 //关于加载时间performance
 let start = performance.timing.navigationStart//地址栏按下回车键的时间
 
+function revese(str) {
+  if (!str) return null;
+  let result = ''
+  if (str/10 < 1) {
+    result +=  str%10
+  }else {
+    result += str%10+revese(Math.floor(str/10))
+  }
+  return result
+}
+
+function deepFind(node) {
+  let nodeList = []
+  let pushNode= function(node) {
+    if(!node) return null;
+    nodeList.push(node)
+    let nodeChilds = node.children || []
+    Array.from(nodeChilds).forEach(child => {
+      pushNode(child)
+    })
+  }
+  pushNode(node)
+  return nodeList
+ }
+
+
+
 
 
 //下面代码是抄袭过来的，这个是测试浏览器内核的方法

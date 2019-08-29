@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+  <script>
+  tinymce.init({
+    selector: '#mytextarea'
+  });
+  window.onload =function () {
+    let iframe = document.getElementById('mytextarea_ifr')
+    let click = function () {
+      let nodeChilds = iframe.contentWindow.document.body.children
+      let contents = []
+      Array.from(nodeChilds).forEach(({tagName, textContent}) => contents.push({tagName, textContent}))
+      console.log(contents);
+    }
+    document.getElementsByClassName('click')[0].addEventListener('click', () => click())
+  }
+  </script>
+</head>
+
+<body>
+<h1>TinyMCE Quick Start Guide</h1>
+  <form method="post">
+    <textarea id="mytextarea" name="mytextarea">Hello, World!</textarea>
+  </form>
+  <div class="click">
+    dian wo .......
+  </div>
+</body>
+</html>
