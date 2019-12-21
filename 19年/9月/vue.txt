@@ -1,0 +1,26 @@
+vue 在对数据进行setter的时候没有直接对数据的watcher（此时存储在dep中）进行update，而是把
+所有的watcher添加到队列中，当出现相同的watcher则覆盖，等到下次MicroTast时候全部更新;这样
+避免了for循环改变数据而引起页面重复渲染的问题。
+
+
+// vue中nexttick 的执行过程
+Vue.prototype.$nextTick = function(cb?: Funciton, arg?: Object) ｛
+  let _resolve
+  this.taskCallBacks.push(() => {
+    try {
+      if(cb) {
+        cb.call(this, arg)
+      }else if(_resolve) {
+        _resolve(arg)
+      }
+    }catch(e) {
+      console.log(e)
+    }
+  })
+
+  if(!cb && typeof Promise!= 'undefined') {
+    return new Promise( (resove, reject) => {
+      _resolve = reslove
+    })
+  }
+｝

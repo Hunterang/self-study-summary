@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      html, body{
+        width: 100%;
+        height: 100%;
+        background: #666;
+      }
+      .bar {
+        width: 300px;
+      }
+      .container {
+        height: 10px;
+        background: linear-gradient(to right, rgba(50, 90,90, 0.8), rgba(12,45,200,1));
+        border-radius: 5px;
+        box-shadow: 0 0 8px 0 rgba(110,210,250,0.8);
+        transition-delay: 2s;
+        animation: animate 1s 1;
+        animation-fill-mode: forwards;
+      }
+      @keyframes animate {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      .num {
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <div class="container">
+
+      </div>
+      <p class='num'>this is test</p>
+    </div>
+    <script type="text/javascript">
+      let number = 50968.6
+      let res = 0
+      let el = document.querySelector('.num')
+      function hanldleNum() {
+        window.requestAnimationFrame(hanldleNum)
+        let step = Math.floor((number-res)/10)
+        res = res+ step
+        console.log(step, res);
+        if (step <50) {
+          el.innerHTML = number
+          window.cancelAnimationFrame(hanldleNum)
+          return
+        }
+        let rand = Math.floor(Math.random()*10)
+        el.innerHTML = `${res}.${rand}`
+      }
+      hanldleNum()
+    </script>
+  </body>
+</html>

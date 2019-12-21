@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      .test{
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <span class="test">
+      你
+    </span> -->
+    <script type="text/javascript">
+      var str = "javascript function(){halo}"
+      var len = str.length
+      var size = 30
+      let w = window.innerWidth
+      let h = window.innerHeight
+      let can = document.createElement('canvas')
+      var xAysis = Math.floor( w/size )
+      var y = []
+      can.width = w
+      can.height = h
+      document.body.appendChild(can)
+      cxt = can.getContext('2d')
+
+      for (var i = 0; i < xAysis; i++) {
+        y[i] = 5
+      }
+
+      // console.log(h);
+       function draw() {
+         requestAnimationFrame(draw)
+         cxt.fillStyle = 'rgba( 0,0,0,0.1 )'
+         cxt.fillRect( 0,0,w,h )
+         cxt.font = size*0.8 + 'px  Arial'
+         cxt.fillStyle = '#52da68'
+
+         for (var i = 0; i < xAysis; i++) {
+           var word = str.charAt( Math.floor(Math.random()*len))
+           // console.log(word);
+           cxt.fillText( word , i*size , y[i])
+           y[i] += size
+           if (y[i] > h && Math.random() > 0.95) {
+             y[i] = 5
+           }
+         }
+       }
+
+       draw()
+
+       // for (var i = 0; i < xAysis; i++) {
+       //   var word = str.charAt( Math.floor(Math.random()*len))
+       //   console.log(word);
+       // }
+       // setInterval(draw,200)
+    </script>
+  </body>
+</html>

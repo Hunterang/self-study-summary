@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title></title>
+    <style type="text/css">
+      .border {
+        position: relative;
+        background: #52d8cc;
+        height: 200px;
+        width: 400px;
+        transform: translateX(30px);
+        margin: 20px;
+      }
+      .border::before {
+        content: "";
+        position: absolute;
+        left: -30px;
+        height: 140px;
+        /* width:500px;
+        height:500px; */
+        /* height: 200px; */
+        border-top:  30px solid transparent;
+        border-right: 30px solid #52d8cc;
+        border-bottom: 30px solid transparent;
+        opacity: .3;
+      }
+      .border::after {
+        opacity: .3;
+        content: "";
+        position: absolute;
+        right: -30px;
+        height: 140px;
+        /* width:500px;
+        height:500px; */
+        /* height: 200px; */
+        border-top:  30px solid transparent;
+        border-left: 30px solid #52d8cc;
+        border-bottom: 30px solid transparent;
+      }
+      .grid {
+        display: grid;
+        width: 100%;
+        height: 600px;
+        grid-template-areas:
+            "a b b"
+            "c b b"
+            "d d e";
+        grid-template-columns: 200px 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 5px 10px;
+      }
+      .grid>div {
+        position: relative;
+      }
+      .grid>div.a {
+        grid-area: a;
+        background: #579bdf;
+      }
+      .grid>div.b {
+        grid-area: b;
+        box-shadow: 0 0 20px #579bdf inset;
+        /* background: #fdb975; */
+      }
+      .grid>div.c {
+        grid-area: c;
+        background: #feddef;
+      }
+      .grid>div.d {
+        grid-area: d;
+        background: #789987;
+      }
+      .grid>div.e {
+        grid-area: e;
+        background: #775852;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="border">
+      我是添加左右体型测试
+    </div>
+
+    <div class="grid">
+      <div class="a">
+        我是a块
+      </div>
+      <div class="b">
+        <div class="border">
+
+        </div>
+      </div>
+      <div class="c">
+        我是c块
+      </div>
+      <div class="d">
+        我是d块
+      </div>
+      <div class="e">
+        我是e块
+      </div>
+    </div>
+  </body>
+</html>

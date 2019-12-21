@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #333;
+      }
+      .stage {
+        position: relative;
+        text-align: center;
+        color: #539677;
+        margin: 50px auto;
+        width: 200px;
+        height: 200px;
+        animation: stagemove .5s 2 alternate;
+        animation-delay: 3s;
+      }
+      .outer {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        box-shadow: 0 0 30px #33af87 inset;
+        border-radius: 50%;
+        animation:outermove 2s 1 ;
+        animation-delay: 1s;
+      }
+      .inner {
+        position: absolute;
+        width: 100px;
+        height:100px;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px;
+        margin-top: -50px;
+        box-shadow: 0 0 30px #58bd54 inset;
+        border-radius: 50%;
+        animation:innermove 3s;
+        z-index: 3;
+      }
+      .middle {
+        position: absolute;
+        width: 150px;
+        height:150px;
+        top: 50%;
+        left: 50%;
+        margin-left: -75px;
+        margin-top: -75px;
+        box-shadow: 0 0 30px #cd2258 inset;
+        border-radius: 50%;
+        z-index: 2;
+        animation:middlemove 1s 2;
+        -webkit-animation-delay:.5s;
+      }
+
+      @keyframes middlemove {
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @keyframes innermove {
+        100% {
+          transform: rotate(2880deg);
+        }
+      }
+
+      @keyframes outermove {
+        100% {
+          transform: rotate(1080deg);
+        }
+      }
+
+      @keyframes stagemove {
+        100% {
+          transform: scale(1.5);
+          display: none;
+        }
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="outer">
+        year
+    </div>
+    <div class="middle">
+      new
+    </div>
+    <div class="inner">
+      happy
+    </div>
+  </div>
+  </body>
+</html>
