@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function mySecondSort(arr) {
+        if(!Array.isArray(arr)) return arr
+
+        let n = arr.length//设置最后的交换位置 哨兵
+        while (n) {
+          let lastIndex = 0
+          for(var i = 0; i< n-1; i++) {
+            if (arr[i] > arr[i+1]) {
+              let current = arr[i]
+              arr[i] = arr[i+1]
+              arr[i+1] = current
+              lastIndex = i+1
+            }
+          }
+          n = lastIndex
+        }
+        return arr
+      }
+    let res = mySecondSort([1,2,4,34,5,35,2,7,43])
+    console.log(res);
+    </script>
+  </body>
+</html>
