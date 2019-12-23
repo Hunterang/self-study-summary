@@ -1,0 +1,76 @@
+<!--一个简单的方法，把html解析为dom对象-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let html = '<div><p></p><p></p></div>'
+     function parse (html) {
+      let object = []
+      let tagStart = /\<(\w+)[^\<]*\/?\>|\<\//g
+      String(html).replace(tagStart, (a, b) => {
+        console.log(a, b);
+        // return
+        let jsx = {}
+        if (!a.startsWith('</')) {
+
+          jsx.tag =  b
+          if (a.indexOf('/>') > -1) {
+            jsx.end = true
+          } else {
+            jsx.end = false
+          }
+          if (!object.length) {
+            object.push(jsx)
+            console.log(jsx);
+
+          } else {
+            let last = object[object.length - 1]
+            pushChild(last, jsx, object)
+          }
+        } else {
+          let lastUnEnd = object[object.length - 1]
+          endTag(lastUnEnd, null)
+        }
+      })
+      console.log(object);
+
+    }
+
+    function pushChild (obj, current, object) {
+      if (!obj.end) {
+        if (!obj.children) {
+          obj.children = []
+          obj.children.push(current)
+        } else {
+          let last = obj.children[obj.children.length - 1]
+          pushChild(last, current, obj.children)
+        }
+      } else {
+        object.push(current)
+      }
+    }
+
+    function endTag (lastUnEnd) {
+      if (!lastUnEnd.children) {
+          lastUnEnd.end = true
+      } else {
+        let last = lastUnEnd.children[lastUnEnd.children.length - 1]
+        if (last.end) {
+          lastUnEnd.end = true
+        } else {
+          endTag(last)
+        }
+      }
+    }
+    parse(html)
+
+  </script>
+</body>
+</html>
