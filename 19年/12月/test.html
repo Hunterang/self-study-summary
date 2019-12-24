@@ -1,0 +1,98 @@
+<!--一个九宫格（带着周边转动）的实现方法-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            /* background: url('./positon.png'); */
+            background-attachment: fixed;
+        }
+        #container {
+            margin: 100px auto;
+            width: 150px;
+            height: 150px;
+            position: relative;
+            border-top: 1px solid #159adf;
+            border-left: 1px solid #159adf;
+        }
+        #container>div {
+            width: 30px;
+            height: 30px;
+            box-sizing: border-box;
+        }
+        .sideClass {
+            border-right: 1px solid #159adf;
+            border-bottom: 1px solid #159adf;
+            background: #adf;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 1000px;"></div>
+    <div class= 'testOff' style="height: 500px;"></div>
+    <div id='container'></div>
+    <script>
+        const row = 5
+        const col = 5
+        const width = 30
+        const height = 30
+        let domCollection = []
+        let sideDom = []
+        let container = document.getElementById('container')
+        function createDom() {
+            for(let i=0; i<row; i++) {
+                for(let j= 0; j<col; j++) {
+                    let div = document.createElement('div')
+                    div.row = i
+                    div.col = j
+                    div.style.position = 'absolute'
+                    div.style.left = j*width+'px'
+                    div.style.top = i*height+'px'
+                    if(i === 0 || j === 0 || i === 4 || j === 4) {
+                        div.className = 'sideClass'
+                        sideDom.push(div)
+                    }else {
+                        div.className = 'innerClass'
+                    }
+                    container.appendChild(div)
+                }
+            }
+        }
+        createDom()
+        function janerateList(sideDom) {
+            let top = sideDom.filter(dom => dom.row === 0)
+            let right = sideDom.filter(dom => dom.col === 4).sort((a,b) => a.row -b.row)
+            let bottom = sideDom.filter(dom => dom.row === 4).reverse()
+            let left = sideDom.filter(dom => dom.col === 0).sort((a,b) => b.row -a.row)
+
+            let  arr = new Set(top.concat(right, bottom, left))
+            return [ ...arr ]
+        }
+        let arrList = janerateList(sideDom)
+        console.log(arrList);
+
+        function setStyle(arr) {
+            let index = 0
+            let len = arr.length
+            let timer = setInterval(() => {
+                let current = index%len
+                let pre = index-1
+                if(pre > -1) {
+                    arr[pre%len].style.background =  ''
+                }
+                arr[current].style.background = '#'+Math.random().toString(16).slice(-6)
+                index++
+                if(index > 100) {
+                    clearInterval(timer)
+                }
+            },200)//时间可以不断加快
+        }
+        setStyle(arrList)
+
+     </script>
+</body>
+</html>
