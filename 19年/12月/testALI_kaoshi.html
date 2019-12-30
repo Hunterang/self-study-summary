@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function countOfLetters(string) {
+        /** 代码实现 */
+        let object = {}
+        let reg = /\(?\w+|\)\d*/g
+        string.replace(reg, (a, b)=> {
+          if(!a.startsWith('(') && !a.startsWith(')')) {
+            a.replace(/(\w)(\d)*/g, (a,b,c) => {
+              object[b] = c || 1
+            })
+          }else {
+           if(!a.includes(')')) {
+              // object.group === void 0 && object.group = {}
+              createGroup(object, a)
+           }else {
+             endGroup(object, a)
+           }
+
+          }
+        })
+        console.log(object);
+      }
+
+     function createGroup(object, a) {
+     //  object.group === void 0 && object.group = {}
+     // 链表可以优化递归，暂时先这样
+       if (object.group === void 0) {
+         //此处应该设计为[]才合理，｛｝涉及不够健壮
+         object.group = {}
+         a.replace(/(\w)(\d)*/g, (a,b,c) => {
+           object.group[b] = c || '1'
+           object.group.isEnd = false
+         })
+       }else {
+         createGroup(object.group, a)
+       }
+     }
+
+     function endGroup(object, a) {
+        //设计缺陷生成的对象有缺陷
+       if(object.group.group === void 0) {
+         object.group.isEnd = true
+         // for(let key in object.group) {
+         //   if(typeof(object.group[key]) === 'string') {
+         //     object.group[key] = a.slice(1)*(object.group[key])
+         //   }
+         // }
+         calc(object.group, a)
+       }else {
+         if(object.group.group.isEnd === true) {
+           object.group.isEnd = true
+           calc(object.group, a)
+         }else {
+           endGroup(object.group, a)
+         }
+       }
+
+       function calc(obj,a) {
+         for(let key in obj) {
+           if(typeof(obj[key]) === 'string') {
+             obj[key] = a.slice(1)*(obj[key])
+           }
+           if(key === 'group') {
+             calc(obj[key], a)
+           }
+       }
+     }
+   }
+     countOfLetters('C4(A(A3B)2)2')
+
+
+
+     function netCount(str) {
+       let reg = /(?<=.*)\((\w+)\)(?=.*)/g
+       str = str.replace(reg, (a,b) => b.replace(/\w(\d)*/g, (a, b) => b?  b*2: 2))
+       console.log(str);
+     }
+    </script>
+  </body>
+</html>
