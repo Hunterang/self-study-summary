@@ -28,7 +28,7 @@ function setStrZ(str) {
     }
 
    let newStr = [].concat(...allList).join('')
-//    console.log(newStr.replace(/\s+/g, ''));
+   console.log(newStr.replace(/\s+/g, ''));
 
     return newStr.replace(/\s+/g, '')
 }

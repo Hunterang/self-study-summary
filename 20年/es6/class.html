@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div class="app">
+
+  </div>
+  <script type="text/javascript">
+    //重新识别class
+    //分清原型对象A.prototype 跟类A的区别（构造函数）
+    //1.static
+    class ColorPoint {
+      static color = "#123456"
+      static getColor() {
+        return ColorPoint.color
+      }
+      get color() { //实例的属性
+        return ColorPoint.color
+      }
+    }
+    let cp = new ColorPoint()
+    console.log(ColorPoint.color);
+    console.log(ColorPoint.getColor());
+    console.log(cp.color);
+    console.log(cp);
+    //2.私有方法属性
+    let bar = Symbol('bar')
+    let foo = Symbol('foo')
+    class Private {
+      [bar] = 'bar';
+      // constructor() {
+      //
+      // }
+      [foo]() {
+        return this[bar] = 'bar'
+      }
+    }
+    let p = new Private()
+    console.log(p)
+    try {
+      console.log(p.foo())
+    } catch (e) {
+      console.log(e);
+    }
+
+    class P {
+      #count = 0;
+      constructor() {
+        console.log(new.target);
+        //继承的情况下new.target返回子的实例
+      }
+      sum() {//私有方法暂时不支持
+        return this.#count
+      }
+      increace() {
+        this.#count++
+      }
+    }
+    let p1 = new P()
+    p1.increace()
+    console.log(p1);
+    // console.log(p1.#count);
+    console.log(p1.constructor === P);
+    console.log(p1.__proto__ === P.prototype);
+
+
+
+
+
+
+    function F() {
+
+    }
+    F.prototype.earn = () => {
+      console.log('money');
+    }
+    function Inher() {
+
+    }
+    Inher.prototype = new F
+    function C() {
+
+    }
+    C.prototype =  new Inher()
+    console.log(C.prototype);
+    C.prototype.constructor = C
+    C.prototype.add = () => {
+      console.log('add');
+    }
+    let c = new C()
+    console.log(c);
+
+
+//3.EXTNEDS 继承
+class Fathers {
+  constructor() {
+
+  }
+}
+  class Childs extends Fathers {
+
+  } /*equal*/
+class Father {
+  constructor() {
+
+  }
+}
+  class Child extends Father {
+    constructor(...args) {
+      super(...args)
+    }
+  }
+
+//extends 还能继承父类的静态的方法
+    class Fstatic {
+      static sayHello() {
+        console.log('hello')
+      }
+    }
+    class CextendF extends Fstatic {
+      constructor(...args) {
+        super(...args)
+      }
+    }
+    let cef = new CextendF()
+    CextendF.sayHello() //可以直接调用
+
+    console.log(Object.getPrototypeOf(CextendF).name)//获取父类
+//3.super 指向了父类的原型对象（super[fn]()） ，在静态方法中代表了父的类
+//static 中的super指代的是类，super必须指定是类还是function否则报错
+
+
+    class M {
+      constructor() {
+        this.x = 1
+
+      }
+    }
+    // M.prototype.x = 2
+    class N extends M {
+      x = 3;
+      constructor() {
+        super()
+        super.x = 2
+        console.log(this.x);
+      }
+    }
+    console.log(new N().__proto__ === N.prototype)
+    console.log(N.__proto__ == M)
+    console.log(N.prototype.__proto__ == M.prototype);
+    // console.log(N.prototype == new M);false,估计做了空的构造函数。。中间替代
+
+  </script>
+</body>
+
+</html>
