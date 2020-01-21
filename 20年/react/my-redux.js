@@ -31,9 +31,9 @@ export function createStore(reducer, enhancer) {
       dispach = middleware(mid)(store.dispach)
       return {
         ...store,
-        dispach//dispatch覆盖之前的dispatch  
+        dispach//dispatch覆盖之前的dispatch
       }
-    }
+    }  
   }
 
 
