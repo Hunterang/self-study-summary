@@ -19,22 +19,26 @@ export function createStore(reducer, enhancer) {
   }
   dispatch({type: '@@react-redux|init'})
   return { getState, subscribe, dispatch}
+}
 
-  function applyMiddleware(middleware) {
-    return createStore=> (...args) => {
-      let store = createStore(...args)
-      let dispatch = store.dispatch
-      const mid = {
-        getState: store.getState,
-        dispatch: (...args) => dispach(...args)
-      }
-      dispach = middleware(mid)(store.dispach)
-      return {
-        ...store,
-        dispach//dispatch覆盖之前的dispatch
-      }
-    }  
+function applyMiddleware(middleware) {
+  //这个就是enhancer
+  //作用就是为了重构actions
+  return createStore=> (...args) => {
+    let store = createStore(...args)
+    //执行store
+    let dispatch = store.dispatch
+    const mid = {
+      getState: store.getState,
+      dispatch: (...args) => dispach(...args)//参数就是实际上需要的reducer'
+    }
+    dispach = middleware(mid)(store.dispach)//这里是chunk，生成新的dispatch
+    return {
+      ...store,
+      dispach//dispatch覆盖之前的dispatch
+    }
   }
+}
 
 
 function bindActionCreator(creator, dispatch) {

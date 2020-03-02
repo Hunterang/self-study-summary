@@ -17,6 +17,29 @@
       String(html).replace(tagStart, (a, b) => {
         console.log(a, b);
         // return
+
+
+
+        Array.prototype.myMap = (cb) => {
+          const lenght = this.length
+          for (var i = 0; i < length; i++) {
+            cb()
+          }
+        }
+
+        Function.prototype.myBind = (context, ...args) => {
+          if(!ct) ct = window
+          ct.fn = this
+          return () => {
+            ct.fn(...args)
+            ct.delete fn
+          }
+        }
+        object = {
+          c: function() {
+
+          }
+        }
         let jsx = {}
         if (!a.startsWith('</')) {
 

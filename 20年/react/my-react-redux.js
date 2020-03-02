@@ -1,5 +1,5 @@
 import React from 'react'
-import propTypes from 'prop-types'//需要下载仅仅作为校验使用
+import PropTypes from 'prop-types'//需要下载仅仅作为校验使用
 import bindActionCreators from './my-react'
 
 export const connect = (mapstateToProps = state => state, mapDispatchToProps = {}) => (WarpComponent) => {
@@ -26,8 +26,8 @@ export const connect = (mapstateToProps = state => state, mapDispatchToProps = {
                       //为什么不再constructor阶段实现呢？
         props: {
           ...stateProps,//将想要的状态绑定到相应的属性上
-          ...this.state.props //此处尚存疑问的地方
-          ...this.dispachProps
+          ...this.state.props, //此处尚存疑问的地方
+          ...dispachProps
         }
       })
     }
@@ -39,7 +39,7 @@ export const connect = (mapstateToProps = state => state, mapDispatchToProps = {
 
 export class Provider extends React.Components {
   static childContextTypes = {
-    store: propTypes.Object//对全局需要强校验
+    store: PropTypes.Objects//对全局需要强校验
   }
   getChildContext() {//将数据挂到全局去context上
     return {

@@ -1,4 +1,4 @@
-```
+```javascript
 //vue组件重点，参数，事件，slot
 //vue高阶组件
 
