@@ -2,15 +2,19 @@ module.exports =  {
   entry: '',
   output: '',
   modules: {
-    loaders: [
+    rules: [
       {
-        test: '\.jsx?$',
-        use: []
+        test: /\.jsx?$/,
+        use: ['babel-laoder',{
+          loader: '',
+          options: []
+        }],
+        exclude: /node_modules/
       }
     ]
   },
   devSever: {
-    
+
   }
 
 
