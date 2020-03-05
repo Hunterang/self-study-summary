@@ -6,9 +6,10 @@
 //初始化 A 和 B 的元素数量分别为 m 和 n。
 
 function merge(A, m, B, n) {
-  for(var i = 0; i++; i< n) {
+  for(var i = 0; i< n; i++) {
     A[m+i] = B[i]
   }
+
   while(A.length > m+n) {
     A.pop()
   }
@@ -26,3 +27,5 @@ function merge(A, m, B, n) {
     len = hooker
   }
 }
+let A = [1,2,3,0,0,0],B=[2,3,5],m=3,n=3
+merge(A, m, B, n)
