@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+      <input type="text" name="" value="">
+    </div>
+    <script type="text/javascript">
+      let input = document.querySelector('input')
+      let data = {
+        value: ''
+      }
+      console.log(data);
+      ~~function() {
+        let val = data['value']
+        Object.defineProperty(data, 'value', {
+          get() {
+            return val
+          },
+          set(value) {
+            //更改数据的同时，触发了页面视图的变化
+            val = value
+            input.value = value
+          }
+        })
+      }()
+      data.value = 1243
+      console.log(data);
+
+      //get跟set对数据进行存储和修改，类似闭包特性  感觉get、set触发同时
+      //get返回的数据就是data.value的数据
+      //set一旦修改，就相当于改掉了值
+      inpurt.oninput = function(e) {
+        data.value = e.target.value
+        //此处出发了set方法
+      }
+    </script>
+  </body>
+</html>

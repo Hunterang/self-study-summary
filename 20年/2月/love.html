@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #212331;
+      }
+      .container {
+        position: relative;
+        height: 500px;
+        width: 500px;
+        margin: 10px auto 0;
+      }
+      .element {
+        position: absolute;
+        height: 40px;
+        width: 30px;
+        background: linear-gradient(to bottom, #8855ff, #efefef, #ff00ff );
+        box-shadow: 0 0 8px 0 #8855ff60; 
+      }
+      p {
+        text-align: center;
+        color: #df9999;
+      }
+      .fly {
+        opacity: 0;
+        font-size: 16px;
+        transform:translateY(10px);
+        display: inline-block;
+        min-width: 5px;
+        animation: anim .5s forwards;
+      }
+      @keyframes anim {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .make-sure-relation {
+        position: absolute;
+        top: 100%;
+        color: #9955ff;
+      }
+      .keep-time {
+        position: absolute;
+        top: 521px;
+        color: #9955ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <p class="word">原来爱情让人如此着迷</p> -->
+      <p class="make-sure-relation">确定恋人关系：2020年3月19号</p>
+      <p class="keep-time"></p>
+    </div>
+    <script type="text/javascript">
+      const times = 80
+      const distance = 2*Math.PI/times
+      let container = document.querySelector('.container')
+      let relation = document.querySelector('.make-sure-relation')
+      let keepTime = document.querySelector('.keep-time')
+      let start = 0//桃的次数
+
+      let setTime = (str) => ('0'+str).slice(-2)
+      let date = +new Date('2020/3/19')
+      let year = 365*24*60*60*1000
+      let day = year/365
+      let hour = day/24
+
+      relation.style.display = 'none'
+      keepTime.style.display = 'none'
+
+
+      function calcSetTime() {
+        let now = +new Date()
+        let hasPass = now - date
+        const timeForm = {
+          year : Math.floor(hasPass/year),
+          day : Math.floor(hasPass%year/day),
+          hour : Math.floor(hasPass%day/hour),
+          min : Math.floor(hasPass%hour/60/1000),
+          second : Math.floor(hasPass%60000/1000)
+        }
+        keepTime.innerText
+        = `距离确定关系 : ${setTime(timeForm.year)}年${setTime(timeForm.day)}天${setTime(timeForm.hour)}小时${setTime(timeForm.min)}分${setTime(timeForm.second)}秒`
+      }
+      calcSetTime()
+      function modifyStyle(Fcontainer, cb) {
+        Fcontainer.style.display = 'block'
+        let text = Fcontainer.innerText
+        Fcontainer.innerText = ''
+        text = text.split('')
+        text.forEach((item, i) => {
+          let el
+          if(!/,/.test(item)) {
+            el = document.createElement('span')
+            el.className = 'fly'
+            el.style.animationDelay = 0.06*i+'s'
+            el.innerText = item
+          }else {
+            el = document.createElement('br')
+          }
+          Fcontainer.appendChild(el)
+        });
+        if(cb) {
+          setTimeout(() => {
+            cb()
+          }, 0.06*(text.length)*1000)
+        }
+      }
+
+      function createElement(container,{className='element', index}) {
+        // debugger
+        let el = document.createElement('div')
+        el.className = className
+        container.appendChild(el)
+        let top =
+         13*Math.cos(index*distance)-5*Math.cos(2*index*distance)-
+         2*Math.cos(3*index*distance)-Math.cos(4*index*distance)
+        let left= 16*Math.pow(Math.sin(index*distance), 3)
+        el.style.top = -10*top +250+ 'px'
+        el.style.left = 10*left +250+ 'px'
+        // el.style.background = '#'+Math.random().toString(16).slice(-6)
+        el.style.transform = `rotate(${360*index/80}deg)`
+      }
+       function showLove() {
+        let rq = window.requestAnimationFrame(showLove)
+        createElement(container, {index: start})
+        start++
+        if(start === 80) {
+          window.cancelAnimationFrame(rq)
+          modifyStyle(relation, () => {
+            modifyStyle(keepTime, () => {
+              setInterval(() => {
+                calcSetTime()
+              }, 500)
+            })
+
+          })
+        }
+       }
+      showLove()
+
+    </script>
+  </body>
+</html>

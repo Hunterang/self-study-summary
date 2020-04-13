@@ -19,7 +19,7 @@ function sum (...args) {
  function* say () {
    yield 1;
    yield ~function (val) {
-    returnval+ 2};
+    return val+ 2};
    yield 3;
  }
 var res = say()

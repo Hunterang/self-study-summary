@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+      let options = {
+        can :  document.querySelector('#canvas'),
+        height : window.innerHeight,
+        width : window.innerWidth
+      }
+      let { can, height, width } = options
+      let ctx = can.getContext('2d')
+      can.height = document.documentElement.clientHeight
+      can.width = document.documentElement.clientWidth
+      let random = function(a, b) {
+        return Math.random()*(b-a) + a
+      }
+      let aStar = []//存储所有雨滴
+
+      function Star({x=2,y=0,color='#fff',vy=2,vx=2}) {
+        this.x = x//
+        this.y = y
+        this.w = 0.5
+        this.h = 10
+        this.color = color
+        this.vy = vy
+        this.vx = vx
+        // this.height = random()
+      }
+      Star.prototype.reStart = function() {
+        this.x = random(0, width)
+        this.y = 0
+        this.vy = random(2, 4)
+      }
+      Star.prototype.draw = function(ctx) {
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.w, this.h)
+      }
+      Star.prototype.move = function(ctx) {
+          // ctx.fill
+          if(this.y < height) {
+            this.y += this.vy
+          }else {
+            this.reStart()
+          }
+          this.draw(ctx)
+
+      }
+
+      function createStars(num, time) {
+        for (var i = 0; i < num; i++) {
+          setTimeout(function(){
+            var star = new Star({x: random(0, width), vy: random(2, 4)})
+            console.log(star);
+            star.draw(ctx)
+            aStar.push(star)
+          }, i*time)
+        }
+      }
+      createStars(50, 200)
+      console.log(aStar);
+      function drop() {
+        let rq = window.requestAnimationFrame(drop)
+        ctx.fillStyle = 'rgba(0,0,0,0.09)'
+        ctx.fillRect(0, 0, width, height)
+        for(var item of aStar) {
+          item.move(ctx)
+        }
+      }
+      drop()
+    </script>
+  </body>
+</html>
