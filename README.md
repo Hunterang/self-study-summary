@@ -1,2 +1,2 @@
 # system-design
-develop baseon vue and php
+develop base on vue and php
