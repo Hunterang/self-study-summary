@@ -5,6 +5,11 @@
 * enty: 入口
 * output: 输出位置，包括文件名等等
 * laoder: 模块转换器，用于将相应的文件转换为需求的内容。
+* resolve: alisa | extensions
+* webpack-dev-server
+* sourse-map
+* externals 将文件以外部链接的方式引入
+* mode webpack4之后需要的
 * 插件plugin，通过plugin来完成对模块相应的改进等等。
 
 
@@ -37,7 +42,17 @@ loader 都放在module下面，根据rules来分配规则。exclude表示不转�
 >创建.banelrc文件
 ```
 {
-    "presets": ["@babel/preset-env"],
+    "presets": [
+        "@babel/preset-env",
+        {
+            "targets": {
+                    "browsers": ["> 1%", "last 2 versions", "not ie <= 8"],
+                    "ie": 11
+                },
+                "useBuiltIns": "usage", //babel 就可以按需加载 polyfill ，且不需要手动引入 @babel/polyfill
+                "corejs": 3,
+        }
+        ],  
     "plugins": [
         [
             "@babel/plugin-transform-runtime",
