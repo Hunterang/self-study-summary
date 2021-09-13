@@ -14,16 +14,16 @@
  > svn 常用操作，尚未完成
  
 ## 技术栈梳理
- > react 
- > vue
- > ts
- > node
- > d3
+ > react \
+ > vue \
+ > ts \
+ > node \
+ > d3 \
  
 ## 工程工具
- > webpakc
- > docker
- > gitlab(ci/cd)
+ > webpakc \
+ > docker \
+ > gitlab(ci/cd) \
 
 ## js基础
 ## 计算机基础
