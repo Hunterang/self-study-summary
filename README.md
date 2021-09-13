@@ -8,3 +8,24 @@
 ## vue-store-mini
  -[一个乞丐版本的vue-store](https://github.com/Hunterang/self-study-summary)-只有存储跟清空的功能.
  
+## 前端宠用操作大全
+ > npm 常用操作，尚未完成
+ > git 常用操作，尚未完成
+ 
+## 技术栈梳理
+ > react 
+ > vue
+ > ts
+ > node
+ > d3
+ 
+## 工程工具
+ > webpakc
+ > docker
+ > gitlab(ci/cd)
+
+## js基础
+## 计算机基础
+## 网络安全
+## 数据结构
+## 设计模式
