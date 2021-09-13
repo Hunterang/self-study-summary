@@ -1,7 +1,10 @@
-# system-design
-develop base on vue and php
+## self-study-summary
 
-###cav.js
- .绘制渐变仪表盘
-###vue-store-mini
- .一个乞丐版本的vue-store，只有存储跟清空的功能
+<h4>个人学习总结，夯实基础，不断学习新的技术<h4>
+
+## cav.js
+ -[仪表盘绘制](https://github.com/Hunterang/self-study-summary)-带渐变百分比.
+ 
+##vue-store-mini
+ -[一个乞丐版本的vue-store](https://github.com/Hunterang/self-study-summary)-只有存储跟清空的功能.
+ 
