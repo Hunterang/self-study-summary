@@ -9,8 +9,9 @@
  -[一个乞丐版本的vue-store](https://github.com/Hunterang/self-study-summary)-只有存储跟清空的功能.
  
 ## 前端宠用操作大全
- > npm 常用操作，尚未完成
- > git 常用操作，尚未完成
+ > npm 常用操作，尚未完成 \
+ > git 常用操作，尚未完成 \
+ > svn 常用操作，尚未完成
  
 ## 技术栈梳理
  > react 
