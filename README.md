@@ -5,6 +5,6 @@
 ## cav.js
  -[仪表盘绘制](https://github.com/Hunterang/self-study-summary)-带渐变百分比.
  
-##vue-store-mini
+## vue-store-mini
  -[一个乞丐版本的vue-store](https://github.com/Hunterang/self-study-summary)-只有存储跟清空的功能.
  
