@@ -18,12 +18,12 @@
  > vue \
  > ts \
  > node \
- > d3 \
+ > d3 
  
 ## 工程工具
  > webpakc \
  > docker \
- > gitlab(ci/cd) \
+ > gitlab(ci/cd) 
 
 ## js基础
 ## 计算机基础
