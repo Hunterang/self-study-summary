@@ -9,12 +9,12 @@
  -[一个乞丐版本的vue-store](https://github.com/Hunterang/self-study-summary)-只有存储跟清空的功能.
  
 ## 前端宠用操作大全
- - [npm 常用操作，尚未完成](https://github.com/Hunterang/self-study-summary/blob/master/%E5%91%BD%E4%BB%A4/npm.md) 
+ - [npm 常用操作](https://github.com/Hunterang/self-study-summary/blob/master/%E5%91%BD%E4%BB%A4/npm.md) 
  > git 常用操作，尚未完成 \
  > svn 常用操作，尚未完成
  
 ## 技术栈梳理
- > react \
+ > [react](https://github.com/Hunterang/self-study-summary/blob/master/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/react.md) \
  > vue \
  > ts \
  > node \
