@@ -18,7 +18,8 @@
  > vue \
  > ts \
  > node \
- > d3 
+ > d3 \
+ > [vue源码分析](https://github.com/Hunterang/self-study-summary/tree/master/vue%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
  
 ## 工程工具
  > webpakc \
