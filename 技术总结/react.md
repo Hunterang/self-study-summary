@@ -233,7 +233,12 @@ let helloworld = (prop) => {
         }
 
     ```
-    ## setState
+    ## setState是同步还是异步
+    - 1、setstate根源在于合成事件钩子函数 、还是原生事件或者settimeout
+    - 2、 合成事件发生的时候，不会直接执行回调函数，（执行自己规定好的更新事件）此时会把isBatching改为true，setstate的作用是存储实例跟对象。
+    - 3、 钩子函数（正在执行自己规定好的更新事件）中isBatching为true，setstate的作用是存储实例跟对象。
+    - 4、 原生事件跟settimeout 会直接更新页面 
+    
     ## 生命周期
     ## 错误边界
     ## Fragments
