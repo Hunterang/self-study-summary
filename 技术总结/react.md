@@ -239,10 +239,69 @@ let helloworld = (prop) => {
     - 3、 钩子函数（正在执行自己规定好的更新事件）中isBatching为true，setstate的作用是存储实例跟对象。
     - 4、 原生事件跟settimeout 会直接更新页面 
     
-    ## 生命周期
+      ## 生命周期
+    > 旧版本
+    - 初始化阶段 --- setup props and state 
+    - 挂载阶段 --- componentWillMount ; render ; componentDidMount 
+    - 更新阶段 ---(props) componentWillReceiveProps ; shouldComponentUpdate ; componentWillUpdate ; render ; componentDidUpdate \
+               ---( states ) shouldComponentUpdate ; componentWillUpdate ; render ; componentDidUpdate 
+    - 卸载阶段 --- componentWillUnmount 
+
+    > 新版本
+    - 创建时 --- constructor ; getDerivedStateFromProps ; rneder ; componentDidMount
+    - 更新时 --- (props)(states) [static]getDerivedStateFromProps ; shouldComponentUpdate ; rneder ; getSnapshotBeforUpdate ; componentDidUpdate \
+      --- (forceUpdate) getDerivedStateFromProps  ; rneder ; getSnapshotBeforUpdate ; componentDidUpdate
+
+    - 卸载时 --- componentWillUnmount
+    > 一些情况
+     - getSnapshotBeforUpdate 需要有返回，值并且同componentDidUpdate 一起使用
+
     ## 错误边界
+        错误边界仍然是一种组件，可以捕获（打印或者其他方式）处理该组件的子组件树任何位置的 JavaScript 错误，并根据需要渲染出备用UI. \
+        只有class组件能够成为错误边界组件。错误边界仅可以捕获子组件的错误，无法捕获自身的错误。\
+        使用生命周期static getDerivedStateFromError(error) 返回值赋给后面的周期 ； componentDidCatch(error, info)
     ## Fragments
+        ```jsx
+           <React.Fragment>
+             <CompoentA />
+                <CompoentB />
+                <CompoentC />
+           </React.Fragment> 
+
+           <>
+             <CompoentA />
+                <CompoentB />
+                <CompoentC />
+           </> 
+        ```
     ## 传送门
+      Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。 \
+      ```jsx
+        const someRoot = document.getElementById('someid') //其它节点 || 即操作A组件，希望其它组件出现效果，不依赖redux || 创建了新的一个模块
+
+            class Modal extends React.Component {
+            constructor(props) {
+                super(props);
+                this.el = document.createElement('div');
+            }
+
+            componentDidMount() {
+                someRoot.appendChild(this.el);
+            }
+
+            componentWillUnmount() {
+                someRoot.removeChild(this.el);
+            }
+
+            render() {
+                return ReactDOM.createPortal(
+                this.props.children,
+                this.el,
+                );
+            }
+            }
+
+      ```
     ## 上下文context
     ## hook
     ## 性能
