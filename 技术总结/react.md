@@ -302,7 +302,90 @@ let helloworld = (prop) => {
             }
 
       ```
-    ## 上下文context
+        ## 上下文context
+
+    ```jsx
+    import React from 'React'
+    import PropTypes from 'prop-types'
+
+    class MiddleComponent extends React.Component {
+        render() {
+            return <Childcomponent />
+        }
+    }
+    class ParentComponent extends React.Component {
+        static childContextTypes = {
+            propA: PropTypes.string,
+            propB: PropTypes.func
+        }
+        getChildContext() {
+            return {
+                 propA: 'propA',
+                propB: () => 'hello'   
+            }
+        }
+        render() {
+            return <MiddleComponent />
+        }
+    }
+
+    const instr = 子组件需要通过一个静态属性contextTypes声明后，才能访问父组件Context对象的属性
+    class Childcomponent extends React.Component {
+        static contextTypes = {
+            propA: PropTypes.string,
+        }
+
+        render() {
+
+            const { propA } = this.context
+            console.log(propA)
+            return (
+
+            )
+        }
+    }
+    const instr1 = 无状态组件
+
+    const Childcomponent = (prop, context) => {
+        const { propA } = context
+    }
+    Childcomponent.contextTypes = {
+        propA: PropTypes.string
+    }
+
+    const instr = 新版本做了调整
+
+    const ThemeContext = react.createContext({
+        background: '',
+        color: ''
+    }) 
+
+    class App extends React.Component {
+        render() {
+            return (
+                <ThemeContext.Provider value={{background: '',color: ''}}> 
+                    <Header />
+                </ThemeContext.Provider>
+            )
+        }
+    }
+
+    class Header extends React.Component {
+        render() {
+            const instr = 必须是函数
+            return (
+                <ThemeContext.Consumer>
+                    {context => ( 
+                        <h1 style={{background: context.background}}>
+                            {this.props.children}
+                        </h1>
+                    )}
+                </ThemeContext.Consumer>
+            )
+        }
+    }
+
+    ```
     ## hook
     ## 性能
     ## react-router-dom
