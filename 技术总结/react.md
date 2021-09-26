@@ -192,7 +192,7 @@ let helloworld = (prop) => {
       - Props 是只读属性，传递给组件以呈现UI和状态，我们可以随时间更改组件的输出。
       - state 属于class组件内部状态，每当setState 就会调用render函数，更新ui视图
 
-    ##proptypes
+    ## proptypes
        - 如果项目不需要ts，推荐使用PropTypes进行静态检查。
 
     ```jsx
@@ -386,7 +386,57 @@ let helloworld = (prop) => {
     }
 
     ```
-    ## hook
+   
+    ## hook -首次执行收集所有的hook，之后根据所有的hook进行更新，所以在异步中或者条件语句中使用hook都是不对的
+    > useState函数
+     - 返回一个state，跟一个setstate方法，不刷新的情况下数据稳定
+     ```tsx
+        const FirstState:React.FC({name?: string}) => (props) {
+
+            const [number, setNumber] = useState<number>(0)
+            return (
+                <div>
+                    <button onClick= {  () => setNumber(number++) }> click me </button>
+                    <p>{number}</p>
+                    <p>{props?.name || 'hello moto'}</p>
+                </div>
+            )
+        }
+
+     ```
+
+      > useeffect函数
+        - 当页面完成开始执行，传入第一个参数为函数函数，传入第二参数为依赖；函数的返回值将会在组件卸载时触发。
+    ```tsx
+
+    const  FirstEffect:React.FC = () => {
+
+        const [count setCount] = useState<number>(0)
+
+        useEffect(() => {
+            document.title = `you clicked ${count} times`
+
+            return () => {
+                console.log('component is being destrory')
+            }
+        },[count])
+
+        return (
+            <div>
+                 <p>count: {count} </p>
+                <button onClick= {  () => setCount(count++) }> click me </button> 
+            </div>
+        )
+
+    }
+
+    ```
+    > useCallback函数 -> 返回函数
+      - 接收一个内联回调函数参数和一个依赖项数组（子组件依赖父组件的状态，即子组件会使用到父组件的值），useCallback 会返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新
+
+      > useMemo函数 -> 返回值类似computed
+      - 把创建函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算
+     
     ## 性能
     ## react-router-dom
     ## redux
