@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
+
+const rootPath = path.resolve(process.cwd(), 'index.html');
+console.log(rootPath);
+var App = (request, response) => {
+  let path = request.url;
+  if (path === '/') {
+    if (!fs.existsSync(rootPath)) {
+      response.writeHead(404);
+      response.end('Not Found');
+      return
+    }
+    let readStream = fs.createReadStream(rootPath);
+
+    // readStream.pie(response);
+    readStream.pipe(response)
+  } else if( path == '/api'){
+    let opts = {
+      host: 'www.baidu.com',
+      port: 80,
+      methods: 'get',
+      path: '/sugrec',
+      headers: {
+
+      }
+    };
+    console.log('baidu//////////////////////')
+    proxy(opts, request, response);
+  } else {
+      response.end('158')
+  }
+};
+
+http.createServer(App).listen(3333, () => {
+  console.log('server start at 3333');
+});
+
+function proxy(opts, request, response) {
+  var proxyRequest = http.request(opts, function (proxyResponse) {
+    proxyResponse.on('data', function (chunk) {
+      response.write(chunk, 'binary');
+    });
+    proxyResponse.on('end', function () {
+      response.end();
+    });
+
+    response.writeHead(proxyResponse.statusCode, proxyResponse.headers);
+  });
+
+  request.on('data', function (chunk) {
+    proxyRequest.write(chunk, 'binary'); //将数据写入请求
+  });
+  request.on('end', function () {
+    proxyRequest.end(); //表示没有数据再次写入请求
+  });
+}
