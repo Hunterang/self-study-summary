@@ -1,0 +1,67 @@
+const readline = require('readline');
+const fs = require('fs')
+const path = require('path')
+
+function execCommand(comand, args) {
+  const cp = require('child_process');
+  return new Promise((resolve, reject) => {
+    const bat = cp.spawn(comand, args, {
+      stdio: 'inherit',
+      shell: true,
+    });
+    bat.on('error', (err) => {
+      reject(err);
+    });
+    bat.on('exit', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}
+
+let question = 'do you want install webpack-cli (yes/no) :';
+
+const questioninterface = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+function isInstall(pakage) {
+  try {
+    require.resolve(pakage);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+const isYarn = fs.existsSync(path.resolve(process.cwd(), 'yarn.lock'));
+
+const comand = isYarn ? 'yarn' : 'npm';
+const args = [isYarn ? 'add' : 'install', '-D'];
+let pakegeName = 'webpack-cli';
+if (!isInstall(pakegeName)) {
+  questioninterface.question(question, (answer) => {
+    let Allowed = answer.toLowerCase().startsWith('y');
+
+    if (!Allowed) {
+      console.error(
+        "You need to install 'webpack-cli' to use webpack via CLI.\n" +
+          'You can also install the CLI manually.'
+      );
+      process.exitCode = 1;
+
+      return;
+    }
+    execCommand(comand, args.concat(pakegeName))
+      .then(() => {
+        require(packageName); //eslint-disable-line
+      })
+      .catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+      });
+  });
+}
