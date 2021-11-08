@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            height: 500px;
+            width: 1000px;
+            margin-left: 200px;
+            border-radius: 3px;
+            background: #ddeeff;
+            border: 1px solid #bfbfbf;
+            position: relative;
+        }
+        .wrap_index {
+            height: 200px;
+        }
+        .over_wrap {
+            height: 150px;
+            overflow: hidden;
+        }
+        .wrap_index li {
+            height: 40px;
+            text-align: center;
+            color: #19f;
+        }
+        .wrap .before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-bottom: 1px solid #bfbfbf;
+            transform:  rotateZ(30deg);
+            top: 50px;
+            left: -21px;
+            overflow: hidden;
+
+        }
+        .before::after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-left: 1px solid #bfbfbf;
+            transform:  rotateZ(30deg);
+            transform-origin: left bottom;
+            background: #ddeeff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="before"></div>
+    </div>
+
+
+    <div class="over_wrap">
+        <div class="wrap_index">
+            <ul id="ul">
+                
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+
+            let ul = document.querySelector('#ul')
+            let wrap_index = document.querySelector('.wrap_index')
+
+             let data = Array.from({length: 5},(v, i) => i) 
+             let liArray = []
+             data.forEach(v => {
+                 let li = document.createElement('li')
+                 li.innerText = v
+                liArray.push(li)
+
+                ul.appendChild(li)
+             })   
+
+            let index = 0
+
+            let fn = window.requestAnimationFrame || window.setTimeout
+
+            function up() {
+                index++
+                wrap_index.style.transform = `translateY(-${index}px)`
+                if(index == 40) {
+                    index = 0
+                    let start = liArray[0]
+                    liArray = liArray.slice(1).concat(start)
+
+                    ul.removeChild(start)
+                    ul.appendChild(start)
+                }
+                fn(up)
+            }    
+            up()    
+
+        }
+    </script>
+</body>
+</html>
