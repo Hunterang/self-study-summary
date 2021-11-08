@@ -20,7 +20,7 @@
  > [node](https://github.com/Hunterang/self-study-summary/tree/master/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/node) \
  > d3 \
  > [vue源码分析](https://github.com/Hunterang/self-study-summary/tree/master/vue%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90) \
- > [特殊应用]()
+ > [特殊应用](https://github.com/Hunterang/self-study-summary/tree/master/somejs)
  
 ## 工程工具
  > webpakc \
